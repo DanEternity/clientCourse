@@ -281,72 +281,72 @@ namespace clientCourse {
 		}
 #pragma endregion
 
-/*
-REASONABLE FUNCTIONS
-*/
+		/*
+		REASONABLE FUNCTIONS
+		*/
 
-private: void setPanelActive(System::Windows::Forms::Panel ^p)
-{
-	p->BringToFront();
+	private: void setPanelActive(System::Windows::Forms::Panel ^p)
+	{
+		p->BringToFront();
 
-	panelSetColorDef();
-	panelSetColor(p, Color::Purple);
-}
+		panelSetColorDef();
+		panelSetColor(p, Color::Purple);
+	}
 
-/*
-REASONABLE FUNCTIONS END
-*/
+			 /*
+			 REASONABLE FUNCTIONS END
+			 */
 
-/*
-DEBUG FUNCTIONS
-*/
-private: void panelSetColorDef()
-{
-	mainProfile->BackColor = Color::White;
-	mainConf->BackColor = Color::White;
-	mainMessages->BackColor = Color::White;
-	mainSearch->BackColor = Color::White;
-	mainOptions->BackColor = Color::White;
-}
+			 /*
+			 DEBUG FUNCTIONS
+			 */
+	private: void panelSetColorDef()
+	{
+		mainProfile->BackColor = Color::White;
+		mainConf->BackColor = Color::White;
+		mainMessages->BackColor = Color::White;
+		mainSearch->BackColor = Color::White;
+		mainOptions->BackColor = Color::White;
+	}
 
-private: void panelSetColor(System::Windows::Forms::Panel ^p, Color color)
-{
-	p->BackColor = color;
-}
+	private: void panelSetColor(System::Windows::Forms::Panel ^p, Color color)
+	{
+		p->BackColor = color;
+	}
 
-/*
-DEBUG FUNCTIONS END
-*/
+			 /*
+			 DEBUG FUNCTIONS END
+			 */
 
-private: System::Void profileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	setPanelActive(mainProfile);
-}
+	private: System::Void profileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		setPanelActive(mainProfile);
+	}
 
-private: System::Void myConfToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	setPanelActive(mainConf);
-}
+	private: System::Void myConfToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		setPanelActive(mainConf);
+	}
 
-private: System::Void messagesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	setPanelActive(mainMessages);
-}
+	private: System::Void messagesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		setPanelActive(mainMessages);
+	}
 
-private: System::Void searchToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	setPanelActive(mainSearch);
-}
+	private: System::Void searchToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		setPanelActive(mainSearch);
+	}
 
-private: System::Void optionsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	setPanelActive(mainOptions);
-}
+	private: System::Void optionsToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		setPanelActive(mainOptions);
+	}
 
-private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	exit(0);
-}
+	private: System::Void exitToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		exit(0);
+	}
 
-};
+	};
 }

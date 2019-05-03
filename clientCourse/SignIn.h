@@ -1,5 +1,11 @@
 #pragma once
 
+const int
+SIGN_IN_STATE_NONE = 0,
+SIGN_IN_STATE_ACCESS = 1,
+SIGN_IN_STATE_DENIED = 2,
+SIGN_IN_STATE_ERROR = -1;
+
 namespace clientCourse {
 
 	using namespace System;
@@ -10,11 +16,14 @@ namespace clientCourse {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Сводка для SignIn
+	/// —водка дл¤ SignIn
 	/// </summary>
 	public ref class SignIn : public System::Windows::Forms::Form
 	{
 	public:
+
+		int state;
+
 		SignIn(void)
 		{
 			InitializeComponent();
@@ -25,7 +34,7 @@ namespace clientCourse {
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// ќсвободить все используемые ресурсы.
 		/// </summary>
 		~SignIn()
 		{
@@ -45,13 +54,13 @@ namespace clientCourse {
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// ќб¤зательна¤ переменна¤ конструктора.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
+		/// “ребуемый метод дл¤ поддержки конструктора Ч не измен¤йте 
 		/// содержимое этого метода с помощью редактора кода.
 		/// </summary>
 		void InitializeComponent(void)
@@ -123,6 +132,7 @@ namespace clientCourse {
 			this->signInButtonOK->TabIndex = 5;
 			this->signInButtonOK->Text = L"Войти";
 			this->signInButtonOK->UseVisualStyleBackColor = true;
+			this->signInButtonOK->Click += gcnew System::EventHandler(this, &SignIn::signInButtonOK_Click);
 			// 
 			// signInButtonRegistration
 			// 
@@ -133,6 +143,7 @@ namespace clientCourse {
 			this->signInButtonRegistration->TabIndex = 6;
 			this->signInButtonRegistration->Text = L"Регистрация";
 			this->signInButtonRegistration->UseVisualStyleBackColor = true;
+			this->signInButtonRegistration->Click += gcnew System::EventHandler(this, &SignIn::signInButtonRegistration_Click);
 			// 
 			// SignIn
 			// 
@@ -153,5 +164,17 @@ namespace clientCourse {
 
 		}
 #pragma endregion
-	};
+
+//OK_button
+private: System::Void signInButtonOK_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+
+}
+
+//SignUp_button
+private: System::Void signInButtonRegistration_Click(System::Object^  sender, System::EventArgs^  e) 
+{
+
+}
+};
 }
