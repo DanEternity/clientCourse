@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MainHeader.h"
+
 namespace clientCourse {
 
 	using namespace System;
@@ -15,6 +17,14 @@ namespace clientCourse {
 	public ref class MyConfs : public System::Windows::Forms::Form
 	{
 	public:
+
+		MyConfs(int accountType)
+		{
+			InitializeComponent();
+
+
+		}
+
 		MyConfs(void)
 		{
 			InitializeComponent();
