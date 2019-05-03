@@ -133,17 +133,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Conference.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="MainHeader.cpp" />
+    <ClCompile Include="Member.cpp" />
+    <ClCompile Include="Message.cpp" />
     <ClCompile Include="MyConfs.cpp" />
     <ClCompile Include="SignIn.cpp" />
     <ClCompile Include="SignUp.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Conference.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MainHeader.h" />
+    <ClInclude Include="Member.h" />
+    <ClInclude Include="Message.h" />
     <ClInclude Include="MyConfs.h">
       <FileType>CppForm</FileType>
     </ClInclude>

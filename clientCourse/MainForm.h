@@ -295,10 +295,7 @@ namespace clientCourse {
 		}
 #pragma endregion
 
-/*
-REASONABLE FUNCTIONS
-*/
-
+#pragma region Reasonable Functions
 	private: void setPanelActive(System::Windows::Forms::Panel ^p)
 	{
 		p->BringToFront();
@@ -307,13 +304,10 @@ REASONABLE FUNCTIONS
 		panelSetColor(p, Color::Purple);
 	}
 
-/*
-REASONABLE FUNCTIONS END
-*/
+#pragma endregion
 
-/*
-DEBUG FUNCTIONS
-*/
+#pragma region Debug Functions
+
 	private: void panelSetColorDef()
 	{
 		mainProfile->BackColor = Color::White;
@@ -328,16 +322,14 @@ DEBUG FUNCTIONS
 		p->BackColor = color;
 	}
 
-/*
-DEBUG FUNCTIONS END
-*/
+#pragma endregion
 
 	private: System::Void profileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		setPanelActive(mainProfile);
 	}
 
-//MY_CONF_FUNCTIONS
+#pragma region My Conferences Functions
 	private: System::Void myConfToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		setPanelActive(mainConf);
@@ -348,7 +340,8 @@ DEBUG FUNCTIONS END
 	{
 
 	}
-//MY_CONF_FUNCTIONS END
+
+#pragma endregion
 
 	private: System::Void messagesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{

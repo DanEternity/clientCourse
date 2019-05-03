@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 const int
 ACCOUNT_TYPE_ADMINISTRATOR = 0,
 ACCOUNT_TYPE_SCIENTIST = 1;
