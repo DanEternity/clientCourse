@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+#include "MainHeader.h"
+
 namespace clientCourse {
 
 	using namespace System;
@@ -16,6 +18,17 @@ namespace clientCourse {
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
 	public:
+
+		int accountType = 0;
+		System::Collections::Generic::List<int> confs;
+
+		MainForm(int accountType)
+		{
+			InitializeComponent();
+
+			this->accountType = accountType;
+		}
+
 		MainForm(void)
 		{
 			InitializeComponent();
@@ -190,6 +203,7 @@ namespace clientCourse {
 			this->mainConfDataGrid->RowTemplate->ReadOnly = true;
 			this->mainConfDataGrid->Size = System::Drawing::Size(454, 250);
 			this->mainConfDataGrid->TabIndex = 0;
+			this->mainConfDataGrid->CellDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MainForm::mainConfDataGrid_CellDoubleClick);
 			// 
 			// ConfName
 			// 
@@ -281,10 +295,7 @@ namespace clientCourse {
 		}
 #pragma endregion
 
-		/*
-		REASONABLE FUNCTIONS
-		*/
-
+#pragma region Reasonable Functions
 	private: void setPanelActive(System::Windows::Forms::Panel ^p)
 	{
 		p->BringToFront();
@@ -293,13 +304,10 @@ namespace clientCourse {
 		panelSetColor(p, Color::Purple);
 	}
 
-			 /*
-			 REASONABLE FUNCTIONS END
-			 */
+#pragma endregion
 
-			 /*
-			 DEBUG FUNCTIONS
-			 */
+#pragma region Debug Functions
+
 	private: void panelSetColorDef()
 	{
 		mainProfile->BackColor = Color::White;
@@ -314,19 +322,26 @@ namespace clientCourse {
 		p->BackColor = color;
 	}
 
-			 /*
-			 DEBUG FUNCTIONS END
-			 */
+#pragma endregion
 
 	private: System::Void profileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		setPanelActive(mainProfile);
 	}
 
+#pragma region My Conferences Functions
 	private: System::Void myConfToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		setPanelActive(mainConf);
 	}
+
+	//Conf cell double click
+	private: System::Void mainConfDataGrid_CellDoubleClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) 
+	{
+
+	}
+
+#pragma endregion
 
 	private: System::Void messagesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
@@ -347,6 +362,5 @@ namespace clientCourse {
 	{
 		exit(0);
 	}
-
-	};
+};
 }

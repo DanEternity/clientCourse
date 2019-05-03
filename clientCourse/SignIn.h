@@ -1,9 +1,12 @@
 #pragma once
 
+#include "MainHeader.h"
+
 const int
 SIGN_IN_STATE_NONE = 0,
 SIGN_IN_STATE_ACCESS = 1,
 SIGN_IN_STATE_DENIED = 2,
+SIGN_IN_STATE_SIGN_UP = 3,
 SIGN_IN_STATE_ERROR = -1;
 
 namespace clientCourse {
@@ -23,10 +26,13 @@ namespace clientCourse {
 	public:
 
 		int state;
+		int type;
 
 		SignIn(void)
 		{
 			InitializeComponent();
+
+			state = SIGN_IN_STATE_NONE;
 			//
 			//TODO: добавьте код конструктора
 			//
@@ -168,13 +174,23 @@ namespace clientCourse {
 //OK_button
 private: System::Void signInButtonOK_Click(System::Object^  sender, System::EventArgs^  e) 
 {
+	//запуск процесса проверки логина и пароля
 
+	///FIXME
+
+	//Тип учетной записи
+
+	type = ACCOUNT_TYPE_SCIENTIST;
+
+	state = SIGN_IN_STATE_ACCESS;
+	this->Close();
 }
 
 //SignUp_button
 private: System::Void signInButtonRegistration_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-
+	state = SIGN_IN_STATE_SIGN_UP;
+	this->Close();
 }
 };
 }
