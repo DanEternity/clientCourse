@@ -1,0 +1,2 @@
+#include "MemberManagerForm.h"
+

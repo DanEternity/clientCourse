@@ -172,6 +172,7 @@ namespace clientCourse {
 			this->Controls->Add(this->signUpLogin);
 			this->Controls->Add(this->SignUpLabel);
 			this->Name = L"SignUp";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"SignUp";
 			this->ResumeLayout(false);
 			this->PerformLayout();

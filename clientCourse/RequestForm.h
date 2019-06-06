@@ -1,7 +1,5 @@
 #pragma once
 
-#include "MainHeader.h"
-
 namespace clientCourse {
 
 	using namespace System;
@@ -12,20 +10,12 @@ namespace clientCourse {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Сводка для MyConfs
+	/// Сводка для RequestForm
 	/// </summary>
-	public ref class MyConfs : public System::Windows::Forms::Form
+	public ref class RequestForm : public System::Windows::Forms::Form
 	{
 	public:
-
-		MyConfs(int accountType)
-		{
-			InitializeComponent();
-
-
-		}
-
-		MyConfs(void)
+		RequestForm(void)
 		{
 			InitializeComponent();
 			//
@@ -37,7 +27,7 @@ namespace clientCourse {
 		/// <summary>
 		/// Освободить все используемые ресурсы.
 		/// </summary>
-		~MyConfs()
+		~RequestForm()
 		{
 			if (components)
 			{
@@ -60,7 +50,7 @@ namespace clientCourse {
 		{
 			this->components = gcnew System::ComponentModel::Container();
 			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"MyConfs";
+			this->Text = L"RequestForm";
 			this->Padding = System::Windows::Forms::Padding(0);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 		}

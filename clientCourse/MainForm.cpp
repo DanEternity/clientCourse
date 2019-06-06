@@ -59,6 +59,7 @@ int main(array<System::String^> ^args)
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 
+	/**/
 	SOCKET socket;
 	if (NetworkSetup(socket) != 0)
 	{
@@ -76,10 +77,9 @@ int main(array<System::String^> ^args)
 	Application::Run(gcnew SignIn());
 	
 	int nodeType = authorization();
-
+	
 	// Создание главного окна и его запуск
 	Application::Run(gcnew MainForm(nodeType));
-
 
 	WSACleanup();
 	return 0;
