@@ -74,7 +74,7 @@ int main(array<System::String^> ^args)
 		SendToServer(test, 1970, socket);
 	}
 	//Создание окна авторизации
-	Application::Run(gcnew SignIn());
+	//Application::Run(gcnew SignIn());
 	
 	int nodeType = authorization();
 	
