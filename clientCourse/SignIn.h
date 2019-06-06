@@ -164,6 +164,7 @@ namespace clientCourse {
 			this->Controls->Add(this->signInLogin);
 			this->Controls->Add(this->label1);
 			this->Name = L"SignIn";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"SignIn";
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -177,10 +178,9 @@ private: System::Void signInButtonOK_Click(System::Object^  sender, System::Even
 	//запуск процесса проверки логина и пароля
 
 	///FIXME
-
-	//Тип учетной записи
-
-	type = ACCOUNT_TYPE_SCIENTIST;
+	if (this->signInLogin->Text == L"admin")
+		type = ACCOUNT_TYPE_ADMINISTRATOR;
+	else type = ACCOUNT_TYPE_SCIENTIST;
 
 	state = SIGN_IN_STATE_ACCESS;
 	this->Close();

@@ -18,7 +18,7 @@ int NetworkSetup(SOCKET & client_socket)
 		*ptr = NULL,
 		hints;
 	char *sendbuf = "this is a test";
-	char recvbuf[DEFAULT_BUFLEN];
+	//char recvbuf[DEFAULT_BUFLEN];
 	int iResult;
 	int recvbuflen = DEFAULT_BUFLEN;
 

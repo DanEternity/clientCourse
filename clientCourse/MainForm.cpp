@@ -59,21 +59,19 @@ int main(array<System::String^> ^args)
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 
+	/*
 	SOCKET socket;
 	if (NetworkSetup(socket) != 0)
 	{
 		WSACleanup();
 		return 0; // error
 	}
+	*/
 
-	//Создание окна авторизации
-	Application::Run(gcnew SignIn());
-	
 	int nodeType = authorization();
-
+	
 	// Создание главного окна и его запуск
 	Application::Run(gcnew MainForm(nodeType));
-
 
 	WSACleanup();
 	return 0;
