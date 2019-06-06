@@ -65,7 +65,13 @@ int main(array<System::String^> ^args)
 		WSACleanup();
 		return 0; // error
 	}
-
+	else
+	{
+		printf("Connected!\n");
+		char test[2000] = "TEST TEST TEST TEST TEST TEST";
+		for (int i(0); i < 1960; i += 5) { test[i] = 'T'; test[i+1] = 'E'; test[i+2] = 'S'; test[i+3] = 'T'; test[i+4] = '_'; }
+		SendToServer(test, 1970, socket);
+	}
 	//Создание окна авторизации
 	Application::Run(gcnew SignIn());
 	

@@ -7,8 +7,12 @@
 #include <stdio.h>
 #include <fstream>
 #include <string>
+#include "Util.h"
 
 #define DEFAULT_BUFLEN 512
+
+static int PacketID = 0;
+
 
 int NetworkSetup(SOCKET & client_socket)
 {
@@ -91,6 +95,12 @@ int NetworkSetup(SOCKET & client_socket)
 			ConnectSocket = INVALID_SOCKET;
 			continue;
 		}
+		DWORD nonBlocking = 1;
+		if (ioctlsocket(ConnectSocket, FIONBIO, &nonBlocking) != 0)
+		{
+			printf("failed to set non-blocking socket\n");
+			return false;
+		}
 		break;
 	}
 
@@ -103,4 +113,25 @@ int NetworkSetup(SOCKET & client_socket)
 	}
 
 	client_socket = ConnectSocket;
+}
+
+int SendToServer(char * buffer, int size, SOCKET socket)
+{
+	/**/
+	std::vector<std::vector<char>> r = RawToBuff(buffer, size, ++PacketID);
+
+	for (int i(0); i < r.size(); i++)
+	{
+		char * q = &r[i][0];
+		send(socket, q, 512, 0);
+	}
+	return 0;
+}
+
+int RecieveFromServer(std::vector<char> &t)
+{
+	t.clear();
+
+	return 0;
+
 }
