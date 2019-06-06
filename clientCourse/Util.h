@@ -52,7 +52,7 @@ std::vector<char> BuffToRaw(std::vector<std::vector<char>> &d)
 	{
 		int id = 0;
 
-		memcpy(&id, &d[i][12], sizeof(int));
+		memcpy(&id, &d[i][8], sizeof(int));
 
 		memcpy(&p[id * 200], &d[i][16], sizeof(char) * 200);
 
