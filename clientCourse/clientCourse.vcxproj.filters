@@ -56,6 +56,8 @@
     </ClCompile>
     <ClCompile Include="SearchForm.cpp">
       <Filter>Файлы исходного кода</Filter>
+    <ClCompile Include="ProfileForm.cpp">
+      <Filter>Файлы исходного кода\FormsCpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
