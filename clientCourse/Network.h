@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include "Util.h"
+#include "MainHeader.h"
 
 #define DEFAULT_BUFLEN 512
 

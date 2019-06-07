@@ -10,4 +10,4 @@ MESSAGE_INFORMATION = 0,
 MESSAGE_INVITE = 1,
 MESSAGE_REQUEST = 2;
 
-static std::vector<std::vector<char>> ServerMessageQueue;
+static std::vector<std::vector<char>> ServerMessageQueue = std::vector<std::vector<char>>();
