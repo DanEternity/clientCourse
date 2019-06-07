@@ -185,6 +185,10 @@ namespace clientCourse {
 private: System::Void signInButtonOK_Click(System::Object^  sender, System::EventArgs^  e) 
 {
 	//запуск процесса проверки логина и пароля
+	std::vector<char> mass;
+	System::String ^login = this->signInLogin->Text;
+	System::String ^password = this->signInPassword->Text;
+
 
 
 	if (!ServerMessageQueue.empty())

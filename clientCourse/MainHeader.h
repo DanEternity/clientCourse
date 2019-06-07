@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <WinSock2.h>
+#include <msclr\marshal_cppstd.h>
 
 const int
 ACCOUNT_TYPE_ADMINISTRATOR = 0,
@@ -18,5 +19,7 @@ MESSAGE_REQUEST = 2;
 static std::vector<std::vector<char>> ServerMessageQueue;
 
 static SOCKET _socket;
+
+std::string getStringFromSystemString();
 
 #endif

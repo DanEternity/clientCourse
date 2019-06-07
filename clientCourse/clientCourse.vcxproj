@@ -252,6 +252,7 @@
     <ClCompile Include="MemberManagerForm.cpp" />
     <ClCompile Include="MessageForm.cpp" />
     <ClCompile Include="MessageManagerForm.cpp" />
+    <ClCompile Include="Network.cpp" />
     <ClCompile Include="ProfileForm.cpp" />
     <ClCompile Include="RequestForm.cpp" />
     <ClCompile Include="ScientistForm.cpp" />
