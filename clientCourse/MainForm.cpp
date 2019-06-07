@@ -60,8 +60,8 @@ int main(array<System::String^> ^args)
 	Application::SetCompatibleTextRenderingDefault(false);
 
 	/**/
-	SOCKET socket;
-	if (NetworkSetup(socket) != 0)
+	
+	if (NetworkSetup(my_socket) != 0)
 	{
 		WSACleanup();
 		return 0; // error
@@ -71,9 +71,9 @@ int main(array<System::String^> ^args)
 		printf("Connected!\n");
 		char test[2000] = "TEST TEST TEST TEST TEST TEST";
 		for (int i(0); i < 1960; i += 5) { test[i] = 'T'; test[i+1] = 'E'; test[i+2] = 'S'; test[i+3] = 'T'; test[i+4] = '_'; }
-		SendToServer(test, 1970, socket);
+		SendToServer(test, 1970, my_socket);
 	}
-	while (1) { UpdateSocket(socket); /*printf("%d\n",ServerMessageQueue.size());*/ }
+	while (1) { UpdateSocket(my_socket); /*printf("%d\n",ServerMessageQueue.size());*/ }
 
 	//Создание окна авторизации
 	//Application::Run(gcnew SignIn());
