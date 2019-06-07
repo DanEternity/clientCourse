@@ -22,20 +22,8 @@ int SendToServer(char * buffer, int size, SOCKET socket);
 int RecieveFromServer(std::vector<char> &t);
 int AddToQueue(std::vector<char> rBuff, std::vector<std::pair<int, std::vector<std::vector<char>>>> &bf, std::vector<std::pair<int, int>> &status);
 int CheckBufferStatus(std::vector<std::pair<int, std::vector<std::vector<char>>>> &bf, std::vector<std::pair<int, int>> &status);
-int ClearBuffer(std::vector<std::pair<int, std::vector<std::vector<char>>>> &bf, std::vector<std::pair<int, int>> &status);
 void UpdateSocket(SOCKET socket);
+int ClearBuffer(std::vector<std::pair<int, std::vector<std::vector<char>>>> &bf, std::vector<std::pair<int, int>> &status);
 
-static int iResult;
-static struct addrinfo *result = NULL;
-static struct addrinfo hints;
-
-static int iSendResult;
-static char recvbuf[DEFAULT_BUFLEN];
-static int recvbuflen = DEFAULT_BUFLEN;
-
-static std::vector<std::pair<int, std::vector<std::vector<char>>>> que;
-static std::vector<std::pair<int, int>> status;
-
-#define DEFAULT_BUFF_TIME 10000
 
 #endif

@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Network.h"
 
 int NetworkSetup(SOCKET & client_socket)
@@ -124,6 +122,19 @@ int RecieveFromServer(std::vector<char> &t)
 
 }
 
+static int iResult;
+static struct addrinfo *result = NULL;
+static struct addrinfo hints;
+
+static int iSendResult;
+static char recvbuf[DEFAULT_BUFLEN];
+static int recvbuflen = DEFAULT_BUFLEN;
+
+static std::vector<std::pair<int, std::vector<std::vector<char>>>> que;
+static std::vector<std::pair<int, int>> status;
+
+#define DEFAULT_BUFF_TIME 10000
+
 int AddToQueue(std::vector<char> rBuff, std::vector<std::pair<int, std::vector<std::vector<char>>>> &bf, std::vector<std::pair<int, int>> &status)
 {
 	int bufId;
@@ -205,7 +216,6 @@ int ClearBuffer(std::vector<std::pair<int, std::vector<std::vector<char>>>> &bf,
 }
 
 void UpdateSocket(SOCKET socket)
-
 {
 	iResult = recv(socket, recvbuf, recvbuflen, 0);
 	if (iResult > 0) {
@@ -253,3 +263,4 @@ void UpdateSocket(SOCKET socket)
 		//return 1;
 	}
 }
+
