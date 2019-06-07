@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef MAIN_HEADER
+#define MAIN_HEADER
+
 #include <vector>
 #include <WinSock2.h>
 
@@ -14,3 +18,5 @@ MESSAGE_REQUEST = 2;
 static std::vector<std::vector<char>> ServerMessageQueue;
 
 static SOCKET _socket;
+
+#endif

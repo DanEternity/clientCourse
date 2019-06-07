@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-#include "MainHeader.h"
+#include "Network.h"
 
 #include "SearchForm.h"
 #include "MessageManagerForm.h"

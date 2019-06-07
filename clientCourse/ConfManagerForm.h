@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MainHeader.h"
+#include "Network.h"
 
 #include "ConfForm.h"
 

@@ -9,7 +9,6 @@
 #include "SignUp.h"
 #include "Network.h"
 
-
 //#include <windows.h>
 //#include <winsock2.h>
 //#include <ws2tcpip.h>
@@ -17,7 +16,6 @@
 //#include <stdio.h>
 
 // Need to link with Ws2_32.lib, Mswsock.lib, and Advapi32.lib
-
 
 using namespace clientCourse;
 

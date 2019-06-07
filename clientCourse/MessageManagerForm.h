@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "MainHeader.h"
+#include "Network.h"
 #include "MessageForm.h"
 
 namespace clientCourse {
