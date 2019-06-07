@@ -1,7 +1,9 @@
 #pragma once
 
-#include <windows.h>
+#pragma comment(lib, "ws2_32")
+
 #include <winsock2.h>
+#include <windows.h>
 #include <ws2tcpip.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -12,7 +14,6 @@
 #define DEFAULT_BUFLEN 512
 
 static int PacketID = 0;
-
 
 int NetworkSetup(SOCKET & client_socket)
 {

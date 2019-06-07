@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "clientCourse", "clientCourse\clientCourse.vcxproj", "{FDA0DCF4-965B-49AA-B436-6A3B9750A76D}"
 EndProject
@@ -13,6 +13,8 @@ Global
 		my_conf|x86 = my_conf|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		Win10v141|x64 = Win10v141|x64
+		Win10v141|x86 = Win10v141|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FDA0DCF4-965B-49AA-B436-6A3B9750A76D}.Debug|x64.ActiveCfg = Debug|x64
@@ -27,8 +29,15 @@ Global
 		{FDA0DCF4-965B-49AA-B436-6A3B9750A76D}.Release|x64.Build.0 = Release|x64
 		{FDA0DCF4-965B-49AA-B436-6A3B9750A76D}.Release|x86.ActiveCfg = Release|Win32
 		{FDA0DCF4-965B-49AA-B436-6A3B9750A76D}.Release|x86.Build.0 = Release|Win32
+		{FDA0DCF4-965B-49AA-B436-6A3B9750A76D}.Win10v141|x64.ActiveCfg = Win10v141|x64
+		{FDA0DCF4-965B-49AA-B436-6A3B9750A76D}.Win10v141|x64.Build.0 = Win10v141|x64
+		{FDA0DCF4-965B-49AA-B436-6A3B9750A76D}.Win10v141|x86.ActiveCfg = Win10v141|Win32
+		{FDA0DCF4-965B-49AA-B436-6A3B9750A76D}.Win10v141|x86.Build.0 = Win10v141|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16BDED07-767B-4A33-BA1A-274F17C246DF}
 	EndGlobalSection
 EndGlobal

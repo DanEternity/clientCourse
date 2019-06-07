@@ -1,153 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Файлы исходного кода">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Заголовочные файлы">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Файлы ресурсов">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="ConfForm.cpp" />
+    <ClCompile Include="ConfManagerFrom.cpp" />
+    <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="MainHeader.cpp" />
+    <ClCompile Include="MemberManagerForm.cpp" />
+    <ClCompile Include="MessageForm.cpp" />
+    <ClCompile Include="MessageManagerForm.cpp" />
+    <ClCompile Include="ProfileForm.cpp" />
+    <ClCompile Include="RequestForm.cpp" />
+    <ClCompile Include="ScientistForm.cpp" />
+    <ClCompile Include="SearchForm.cpp" />
+    <ClCompile Include="SignIn.cpp" />
+    <ClCompile Include="SignUp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MainForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="SignIn.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="SignUp.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="MainHeader.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="ConfForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="ConfManagerFrom.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="InviteForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="MemberManagerForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="MessageForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="MessageManagerForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="ProfileForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="RequestForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="ScientistForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="SearchForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    <ClCompile Include="ProfileForm.cpp">
-      <Filter>Файлы исходного кода\FormsCpp</Filter>
-    </ClCompile>
+    <ClInclude Include="ConfForm.h" />
+    <ClInclude Include="ConfManagerForm.h" />
+    <ClInclude Include="MainForm.h" />
+    <ClInclude Include="MainHeader.h" />
+    <ClInclude Include="MemberManagerForm.h" />
+    <ClInclude Include="MessageForm.h" />
+    <ClInclude Include="MessageManagerForm.h" />
+    <ClInclude Include="Network.h" />
+    <ClInclude Include="ProfileForm.h" />
+    <ClInclude Include="RequestForm.h" />
+    <ClInclude Include="ScientistForm.h" />
+    <ClInclude Include="SearchForm.h" />
+    <ClInclude Include="SignIn.h" />
+    <ClInclude Include="SignUp.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="SignIn.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="SignUp.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Network.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="MainHeader.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Util.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="ConfForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="ConfManagerForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="InviteForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="MemberManagerForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="MessageManagerForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="ProfileForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="RequestForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="ScientistForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="SearchForm.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
+    <EmbeddedResource Include="ConfForm.resx" />
+    <EmbeddedResource Include="ConfManagerForm.resx" />
+    <EmbeddedResource Include="MainForm.resx" />
+    <EmbeddedResource Include="MemberManagerForm.resx" />
+    <EmbeddedResource Include="MessageForm.resx" />
+    <EmbeddedResource Include="MessageManagerForm.resx" />
+    <EmbeddedResource Include="ProfileForm.resx" />
+    <EmbeddedResource Include="ScientistForm.resx" />
+    <EmbeddedResource Include="SearchForm.resx" />
+    <EmbeddedResource Include="SignIn.resx" />
+    <EmbeddedResource Include="SignUp.resx" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SignIn.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SignUp.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfForm.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfManagerForm.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MemberManagerForm.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MessageForm.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MessageManagerForm.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProfileForm.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ScientistForm.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SearchForm.resx">
-      <Filter>Файлы ресурсов</Filter>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="config.txt">
-      <Filter>Файлы исходного кода</Filter>
-    </Text>
+    <Text Include="config.txt" />
   </ItemGroup>
 </Project>

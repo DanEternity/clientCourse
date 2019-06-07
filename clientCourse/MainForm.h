@@ -28,12 +28,15 @@ namespace clientCourse {
 		MessageManagerForm ^messageManagerForm;
 		ConfManagerForm ^confManagerForm;
 		ProfileForm ^profileForm;
+		unsigned __int64 q = 0;
+
 	private: System::Windows::Forms::Button^  buttonProfile;
 	private: System::Windows::Forms::Button^  buttonConf;
 	private: System::Windows::Forms::Button^  buttonMessages;
 	private: System::Windows::Forms::Button^  buttonSearch;
 	private: System::Windows::Forms::Button^  buttonSettings;
 	private: System::Windows::Forms::Button^  buttonExit;
+	private: System::Windows::Forms::Timer^  timer1;
 	public: System::Collections::Generic::List<int> confs;
 
 	public: MainForm(int accountType)
@@ -97,6 +100,8 @@ namespace clientCourse {
 				this->buttonExit->Size = System::Drawing::Size(sizeX, sizeY);
 				this->buttonExit->Location = System::Drawing::Point(3 + (sizeX + offsetX) * 2, 27 + (sizeY + offsetY) * 1);
 			}
+
+			this->timer1->Start();
 		}
 
 	protected:
@@ -117,11 +122,12 @@ namespace clientCourse {
 	private: System::Windows::Forms::ToolStripMenuItem^  searchToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  optionsToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  exitToolStripMenuItem;
+	private: System::ComponentModel::IContainer^  components;
 	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -130,6 +136,7 @@ namespace clientCourse {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->profileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->myConfToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -143,6 +150,7 @@ namespace clientCourse {
 			this->buttonSearch = (gcnew System::Windows::Forms::Button());
 			this->buttonSettings = (gcnew System::Windows::Forms::Button());
 			this->buttonExit = (gcnew System::Windows::Forms::Button());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -266,6 +274,10 @@ namespace clientCourse {
 			this->buttonExit->Text = L"Выход";
 			this->buttonExit->UseVisualStyleBackColor = true;
 			this->buttonExit->Click += gcnew System::EventHandler(this, &MainForm::buttonExit_Click);
+			// 
+			// timer1
+			// 
+			this->timer1->Tick += gcnew System::EventHandler(this, &MainForm::timer1_Tick);
 			// 
 			// MainForm
 			// 
@@ -427,5 +439,14 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 	exit(0);
 }
 #pragma endregion Buttons
+
+//timer
+private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) 
+{
+	std::cout << "MainFormTimerUpdate " << this->q << std::endl;
+	q++;
+	UpdateSocket(_socket);
+	timer1->Start();
+}
 };
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MainHeader.h"
+#include "Network.h"
 
 const int
 SIGN_IN_STATE_NONE = 0,
@@ -26,6 +27,8 @@ namespace clientCourse {
 	public:
 
 		int state;
+	private: System::Windows::Forms::Timer^  timer1;
+	public:
 		int type;
 
 		SignIn(void)
@@ -57,12 +60,13 @@ namespace clientCourse {
 	private: System::Windows::Forms::Label^  signInLabelPassword;
 	private: System::Windows::Forms::Button^  signInButtonOK;
 	private: System::Windows::Forms::Button^  signInButtonRegistration;
+	private: System::ComponentModel::IContainer^  components;
 
 	private:
 		/// <summary>
 		/// ќб¤зательна¤ переменна¤ конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -71,6 +75,7 @@ namespace clientCourse {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->signInLogin = (gcnew System::Windows::Forms::TextBox());
 			this->signInPassword = (gcnew System::Windows::Forms::TextBox());
@@ -78,6 +83,7 @@ namespace clientCourse {
 			this->signInLabelPassword = (gcnew System::Windows::Forms::Label());
 			this->signInButtonOK = (gcnew System::Windows::Forms::Button());
 			this->signInButtonRegistration = (gcnew System::Windows::Forms::Button());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->SuspendLayout();
 			// 
 			// label1
@@ -151,6 +157,10 @@ namespace clientCourse {
 			this->signInButtonRegistration->UseVisualStyleBackColor = true;
 			this->signInButtonRegistration->Click += gcnew System::EventHandler(this, &SignIn::signInButtonRegistration_Click);
 			// 
+			// timer1
+			// 
+			this->timer1->Tick += gcnew System::EventHandler(this, &SignIn::timer1_Tick);
+			// 
 			// SignIn
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -177,6 +187,15 @@ private: System::Void signInButtonOK_Click(System::Object^  sender, System::Even
 {
 	//запуск процесса проверки логина и пароля
 
+
+	if (!ServerMessageQueue.empty())
+	{
+		std::vector<char> q = ServerMessageQueue.front();
+		ServerMessageQueue.erase(ServerMessageQueue.begin());
+
+
+	}
+
 	///FIXME
 	if (this->signInLogin->Text == L"admin")
 		type = ACCOUNT_TYPE_ADMINISTRATOR;
@@ -191,6 +210,12 @@ private: System::Void signInButtonRegistration_Click(System::Object^  sender, Sy
 {
 	state = SIGN_IN_STATE_SIGN_UP;
 	this->Close();
+}
+
+//timer
+private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) 
+{
+	UpdateSocket(_socket);
 }
 };
 }
