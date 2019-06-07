@@ -95,6 +95,3 @@ Class clientCourse.SignUp: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   Fields:
     Int32 state : Public
     Int32 type : Public
-Class clientCourse.RequestForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :System.Windows.Forms.Form
-    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

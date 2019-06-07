@@ -1,39 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ConfForm.cpp" />
-    <ClCompile Include="ConfManagerFrom.cpp" />
-    <ClCompile Include="MainForm.cpp" />
-    <ClCompile Include="MainHeader.cpp" />
-    <ClCompile Include="MemberManagerForm.cpp" />
-    <ClCompile Include="MessageForm.cpp" />
-    <ClCompile Include="MessageManagerForm.cpp" />
-    <ClCompile Include="ProfileForm.cpp" />
-    <ClCompile Include="RequestForm.cpp" />
-    <ClCompile Include="ScientistForm.cpp" />
-    <ClCompile Include="SearchForm.cpp" />
-    <ClCompile Include="SignIn.cpp" />
-    <ClCompile Include="SignUp.cpp" />
-    <ClCompile Include="Network.cpp" />
     <ClCompile Include="Util.cpp" />
+    <ClCompile Include="ConfForm.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfManagerFrom.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="MainForm.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="MemberManagerForm.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageForm.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageManagerForm.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="ProfileForm.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="ScientistForm.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchForm.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="SignIn.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="SignUp.cpp">
+      <Filter>FormsCpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Network.cpp" />
+    <ClCompile Include="MainHeader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actions.h" />
     <ClInclude Include="ConfForm.h" />
     <ClInclude Include="ConfManagerForm.h" />
     <ClInclude Include="MainForm.h" />
-    <ClInclude Include="MainHeader.h" />
     <ClInclude Include="MemberManagerForm.h" />
     <ClInclude Include="MessageForm.h" />
     <ClInclude Include="MessageManagerForm.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="ProfileForm.h" />
-    <ClInclude Include="RequestForm.h" />
     <ClInclude Include="ScientistForm.h" />
     <ClInclude Include="SearchForm.h" />
     <ClInclude Include="SignIn.h" />
     <ClInclude Include="SignUp.h" />
     <ClInclude Include="Util.h" />
-    <ClInclude Include="Actions.h" />
+    <ClInclude Include="MainHeader.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ConfForm.resx" />
@@ -50,5 +70,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="config.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="FormsCpp">
+      <UniqueIdentifier>{c3837e2d-e02d-430d-9f01-7a314a58714d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -23,21 +23,17 @@ namespace clientCourse {
 	/// </summary>
 	public ref class SignIn : public System::Windows::Forms::Form
 	{
-	public:
-
-		int state;
+	public: int state;
 	private: System::Windows::Forms::Timer^  timer1;
-	public:
-		int type;
+	public: int type;
 
 		SignIn(void)
 		{
 			InitializeComponent();
 
 			state = SIGN_IN_STATE_NONE;
-			//
-			//TODO: добавьте код конструктора
-			//
+			
+			timer1->Start();
 		}
 
 	protected:
@@ -181,28 +177,81 @@ namespace clientCourse {
 		}
 #pragma endregion
 
-//OK_button
-private: System::Void signInButtonOK_Click(System::Object^  sender, System::EventArgs^  e) 
+private: void createMessage(std::vector<char> &mass, int &offset)
 {
-	//запуск процесса проверки логина и пароля
-	std::vector<char> mass;
-	System::String ^login = this->signInLogin->Text;
-	System::String ^password = this->signInPassword->Text;
+	std::string login = getStringFromSystemString(this->signInLogin->Text);
+	std::string password = getStringFromSystemString(this->signInPassword->Text);
 
+	__int64 Account = 0;
+	Actions ActionID = action_auth;
+	int PacketID = 0;
+	int PacketCountExpected = 0;
 
+	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
 
-	if (!ServerMessageQueue.empty())
+	offset = getHeaderSize();
+	int start = 3 * sizeof(int);
+	int sizeLogin = login.size();
+	int sizePassword = password.size();
+	writeIntToMessage(mass, start, offset);
+	writeIntToMessage(mass, sizeLogin, offset);
+	writeIntToMessage(mass, sizePassword, offset);
+	writeDataToMessage(mass, login, offset);
+	writeDataToMessage(mass, password, offset);
+}
+
+//OK_button
+	private: System::Void signInButtonOK_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		std::vector<char> q = ServerMessageQueue.front();
-		ServerMessageQueue.erase(ServerMessageQueue.begin());
+		//запуск процесса проверки логина и пароля
+		std::vector<char> mass;
+		mass.resize(200);
 
+		int offset = 0;
+		createMessage(mass, offset);
 
-	}
+		printCharMass(mass);
 
-	///FIXME
-	if (this->signInLogin->Text == L"admin")
-		type = ACCOUNT_TYPE_ADMINISTRATOR;
-	else type = ACCOUNT_TYPE_SCIENTIST;
+		SendToServer(&mass[0], offset, _socket);
+
+		while (ServerMessageQueue.empty())
+		{
+			UpdateSocket(_socket);
+			Sleep(0);
+		}
+
+		if (!ServerMessageQueue.empty())
+		{
+			std::vector<char> q = ServerMessageQueue.front();
+			ServerMessageQueue.erase(ServerMessageQueue.begin());
+
+			printCharMass(q);
+			DataFormat d;
+			readHeader(q, d);
+			int offset = getHeaderSize();
+
+			if (d.ActionID == action_auth_fail)
+			{
+				MessageBox::Show(
+					"Неправильный логин/пароль",
+					"Предупреждение",
+					MessageBoxButtons::OK,
+					MessageBoxIcon::Warning,
+					MessageBoxDefaultButton::Button1,
+					MessageBoxOptions::DefaultDesktopOnly
+				);
+
+				this->Activate();
+				return;
+			}
+			else if (d.ActionID == action_auth_success)
+			{
+				int t;
+				readIntFromMessage(q, t, offset);
+				type = t - 1;
+				accountID = d.Account;
+			}
+		}
 
 	state = SIGN_IN_STATE_ACCESS;
 	this->Close();
@@ -219,6 +268,8 @@ private: System::Void signInButtonRegistration_Click(System::Object^  sender, Sy
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) 
 {
 	UpdateSocket(_socket);
+
+	timer1->Start();
 }
 };
 }

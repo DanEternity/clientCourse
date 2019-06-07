@@ -109,7 +109,9 @@ int SendToServer(char * buffer, int size, SOCKET socket)
 	for (int i(0); i < r.size(); i++)
 	{
 		char * q = &r[i][0];
-		send(socket, q, 512, 0);
+		int y = send(socket, q, 512, 0);
+		y = WSAGetLastError();
+		y = y;
 	}
 	return 0;
 }
@@ -144,9 +146,6 @@ int AddToQueue(std::vector<char> rBuff, std::vector<std::pair<int, std::vector<s
 	{
 		if (bufId == bf[i].first)
 		{
-			//std::vector<char> t;
-			//t.resize(DEFAULT_BUFLEN);
-			//memcpy(rBuff[0], &t[0], DEFAULT_BUFLEN);
 			bf[i].second.push_back(rBuff);
 			return 0;
 		}
@@ -155,9 +154,7 @@ int AddToQueue(std::vector<char> rBuff, std::vector<std::pair<int, std::vector<s
 	std::pair<int, std::vector<std::vector<char>>> elem;
 
 	elem.first = bufId;
-	//std::vector<char> t;
-	//t.resize(DEFAULT_BUFLEN);
-	//memcpy(recvbuf, &t[0], DEFAULT_BUFLEN);
+	
 	elem.second.push_back(rBuff);
 	bf.push_back(elem);
 	status.push_back(std::make_pair(0, 0));
@@ -167,7 +164,6 @@ int AddToQueue(std::vector<char> rBuff, std::vector<std::pair<int, std::vector<s
 
 int CheckBufferStatus(std::vector<std::pair<int, std::vector<std::vector<char>>>> &bf, std::vector<std::pair<int, int>> &status)
 {
-
 	for (int i(0); i < bf.size(); i++)
 	{
 		int size;
@@ -218,7 +214,8 @@ int ClearBuffer(std::vector<std::pair<int, std::vector<std::vector<char>>>> &bf,
 void UpdateSocket(SOCKET socket)
 {
 	iResult = recv(socket, recvbuf, recvbuflen, 0);
-	if (iResult > 0) {
+	if (iResult > 0) 
+	{
 		printf("Bytes received: %d\n", iResult);
 		printf("%.*s\n", iResult, recvbuf);
 
@@ -236,7 +233,8 @@ void UpdateSocket(SOCKET socket)
 	}
 	else if (iResult == 0)
 		printf("Connection closing...\n");
-	else {
+	else
+	{
 		auto err = WSAGetLastError();
 		if (err == 10035)
 		{
@@ -252,15 +250,10 @@ void UpdateSocket(SOCKET socket)
 
 			}
 
-
 			ClearBuffer(que, status);
 			iResult = 1;
 			return;
 		}
 		printf("recv failed with error: %d\n", err);
-		//closesocket(ClientSocket);
-		//WSACleanup();
-		//return 1;
 	}
 }
-

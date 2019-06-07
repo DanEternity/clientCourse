@@ -47,7 +47,6 @@ namespace clientCourse {
 
 			searchForm = gcnew SearchForm(accountType);
 			messageManagerForm = gcnew MessageManagerForm(accountType);
-			confManagerForm = gcnew ConfManagerForm(accountType);
 			profileForm = gcnew ProfileForm(accountType);
 
 			if (accountType == ACCOUNT_TYPE_ADMINISTRATOR)
@@ -346,6 +345,7 @@ namespace clientCourse {
 	{
 		setButtonActive(this->buttonConf);
 
+		confManagerForm = gcnew ConfManagerForm(accountType);
 		this->Hide();
 		confManagerForm->ShowDialog();
 		this->Show();
@@ -399,6 +399,7 @@ private: System::Void buttonConf_Click(System::Object^  sender, System::EventArg
 {
 	setButtonActive(this->buttonConf);
 
+	confManagerForm = gcnew ConfManagerForm(accountType);
 	this->Hide();
 	confManagerForm->ShowDialog();
 	this->Show();
@@ -443,9 +444,10 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 //timer
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) 
 {
-	std::cout << "MainFormTimerUpdate " << this->q << std::endl;
+	//std::cout << "MainFormTimerUpdate " << this->q << std::endl;
 	q++;
 	UpdateSocket(_socket);
+
 	timer1->Start();
 }
 };
