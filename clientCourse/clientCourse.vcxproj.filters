@@ -67,7 +67,7 @@
       <Filter>Файлы исходного кода\FormsCpp</Filter>
     </ClCompile>
     <ClCompile Include="ProfileForm.cpp">
-      <Filter>Файлы исходного кода</Filter>
+      <Filter>Файлы исходного кода\FormsCpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
