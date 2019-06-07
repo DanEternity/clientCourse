@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 const int
 ACCOUNT_TYPE_ADMINISTRATOR = 0,
@@ -8,3 +9,5 @@ const int
 MESSAGE_INFORMATION = 0,
 MESSAGE_INVITE = 1,
 MESSAGE_REQUEST = 2;
+
+static std::vector<std::vector<char>> ServerMessageQueue;
