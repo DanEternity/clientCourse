@@ -39,7 +39,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>clientCourse</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -252,12 +252,14 @@
     <ClCompile Include="MemberManagerForm.cpp" />
     <ClCompile Include="MessageForm.cpp" />
     <ClCompile Include="MessageManagerForm.cpp" />
+    <ClCompile Include="Network.cpp" />
     <ClCompile Include="ProfileForm.cpp" />
     <ClCompile Include="RequestForm.cpp" />
     <ClCompile Include="ScientistForm.cpp" />
     <ClCompile Include="SearchForm.cpp" />
     <ClCompile Include="SignIn.cpp" />
     <ClCompile Include="SignUp.cpp" />
+    <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConfForm.h">
