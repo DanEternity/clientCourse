@@ -1,4 +1,5 @@
 #pragma once
+
 #include "MainHeader.h"
 
 __int64 accountID;
@@ -57,6 +58,13 @@ void writeInt64ToMessage(std::vector<char> &mass, __int64 value, int &offset)
 	offset += sizeof(__int64);
 }
 
+void writeStringToMessage(std::vector<char> &mass, std::string st, int &offset)
+{
+	int size = st.size();
+	writeIntToMessage(mass, size, offset);
+	writeDataToMessage(mass, st, offset);
+}
+
 void readHeader(std::vector<char> mass, DataFormat &d)
 {
 	__int64 Account;
@@ -101,6 +109,13 @@ void readInt64FromMessage(std::vector<char> mass, __int64 &value, int &offset)
 {
 	memcpy(&value, &mass[offset], sizeof(__int64));
 	offset += sizeof(__int64);
+}
+
+void readStringFromMessage(std::vector<char> mass, std::string &st, int &offset)
+{
+	int size;
+	readIntFromMessage(mass, size, offset);
+	readDataFromMessage(mass, st, size, offset);
 }
 
 void printCharMass(std::vector<char> mass)

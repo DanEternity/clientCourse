@@ -26,10 +26,14 @@ Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c5619
 	hash=None, flags=None
 Class clientCourse.MessageForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
-    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32, Int32, Boolean, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Int32 accountType : Public
+    Int32 messageID : Public
+    Boolean isCreating : Public
+    Int32 confID : Public
     Int32 messageType : Public
+    Int32 messageParam : Public
 Class clientCourse.MessageManagerForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -43,17 +47,23 @@ Class clientCourse.ScientistForm: AutoLayout, AnsiClass, Class, Public, BeforeFi
     Int32 accountType : Public
 Class clientCourse.MemberManagerForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
-    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     clientCourse.ScientistForm scientistForm : Public
+    clientCourse.MessageForm messageForm : Public
+    Int32 confID : Public
     Int32 accountType : Public
 Class clientCourse.ConfForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
-    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Int32 accountType : Public
     clientCourse.MemberManagerForm memberManagerForm : Public
     clientCourse.MessageManagerForm messageManagerForm : Public
+    Int32 confID : Public
+    Boolean inEdit : Public
+    Int32 adminId : Public
+    Boolean alreadyIn : Public
 Class clientCourse.ConfManagerForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
@@ -65,7 +75,6 @@ Class clientCourse.SearchForm: AutoLayout, AnsiClass, Class, Public, BeforeField
     Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Int32 accountType : Public
-    clientCourse.ScientistForm scientistForm : Public
     clientCourse.ConfForm confForm : Public
 Class clientCourse.ProfileForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form

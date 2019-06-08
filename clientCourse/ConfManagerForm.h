@@ -26,17 +26,17 @@ namespace clientCourse {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  ConfName;
 
 
-	public: ConfForm ^ confForm;
+	public: ConfForm ^ confForm = nullptr;
 
 	public: ConfManagerForm(int accountType)
 		{
 			InitializeComponent();
 			
+			this->accountType = accountType;
+
 			loadData();
 			
 			timer->Start();
-
-			confForm = gcnew ConfForm(accountType);
 		}
 
 	protected:
@@ -166,13 +166,19 @@ private: void loadData()
 //Cell double Click
 private: System::Void dataGridView1_CellDoubleClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) 
 {
+	timer->Stop();
+	confForm = gcnew ConfForm(accountType, Convert::ToInt32(dataGridView1->Rows[e->RowIndex]->Cells[0]->Value->ToString()), ALREADY_IN);
+
 	this->Hide();
 	confForm->ShowDialog();
 	this->Show();
 	this->Activate();
+
+	delete confForm;
+	timer->Start();
 }
 
-//visual timer
+//timer
 private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) 
 {
 	if (!ServerMessageQueue.empty())
@@ -185,7 +191,7 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 		readHeader(q, d);
 		int offset = getHeaderSize();
 		
-		if (d.ActionID != action_conf_user_response)
+		if (d.ActionID != action_conf_user_responce)
 			return;
 
 		int count;
@@ -206,10 +212,6 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 			this->dataGridView1->Rows[i]->Cells[0]->Value = id.ToString();
 			this->dataGridView1->Rows[i]->Cells[1]->Value = gcnew System::String(st.c_str());
 		}
-	}
-	else
-	{
-		//we are in wait
 	}
 }
 };

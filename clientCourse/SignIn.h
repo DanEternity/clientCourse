@@ -268,8 +268,6 @@ private: System::Void signInButtonRegistration_Click(System::Object^  sender, Sy
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) 
 {
 	UpdateSocket(_socket);
-
-	timer1->Start();
 }
 };
 }

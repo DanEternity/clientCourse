@@ -20,6 +20,15 @@ namespace clientCourse {
 	public ref class MessageManagerForm : public System::Windows::Forms::Form
 	{
 	public: int accountType;
+	private: System::Windows::Forms::Timer^  timer;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  id;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  messageType;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  fromId;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  toId;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Отправитель;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Получатель;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Тема;
+
 	public: MessageForm ^ messageForm;
 		
 	public: MessageManagerForm(int accountType)
@@ -27,6 +36,10 @@ namespace clientCourse {
 			InitializeComponent();
 			
 			this->accountType = accountType;
+
+			loadData();
+
+			timer->Start();
 		}
 
 	protected:
@@ -50,14 +63,15 @@ namespace clientCourse {
 	private: System::Windows::Forms::CheckBox^  checkBox1;
 	private: System::Windows::Forms::Panel^  panel2;
 	private: System::Windows::Forms::DataGridView^  dataGridView1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column1;
+
+	private: System::ComponentModel::IContainer^  components;
 	protected:
 
 	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -66,6 +80,10 @@ namespace clientCourse {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->checkBox6 = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBox2 = (gcnew System::Windows::Forms::CheckBox());
@@ -76,7 +94,14 @@ namespace clientCourse {
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->messageType = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->fromId = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->toId = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Отправитель = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Получатель = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Тема = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
@@ -204,18 +229,90 @@ namespace clientCourse {
 			// 
 			// dataGridView1
 			// 
+			this->dataGridView1->AllowUserToAddRows = false;
+			this->dataGridView1->AllowUserToDeleteRows = false;
+			this->dataGridView1->AllowUserToResizeColumns = false;
+			this->dataGridView1->AllowUserToResizeRows = false;
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Control;
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dataGridView1->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Column1 });
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(7) {
+				this->id, this->messageType,
+					this->fromId, this->toId, this->Отправитель, this->Получатель, this->Тема
+			});
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dataGridView1->DefaultCellStyle = dataGridViewCellStyle2;
 			this->dataGridView1->Location = System::Drawing::Point(3, 3);
 			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->ReadOnly = true;
+			this->dataGridView1->RowHeadersVisible = false;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->dataGridView1->RowsDefaultCellStyle = dataGridViewCellStyle3;
 			this->dataGridView1->Size = System::Drawing::Size(445, 531);
 			this->dataGridView1->TabIndex = 0;
 			this->dataGridView1->CellDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MessageManagerForm::dataGridView1_CellDoubleClick);
 			// 
-			// Column1
+			// timer
 			// 
-			this->Column1->HeaderText = L"Column1";
-			this->Column1->Name = L"Column1";
+			this->timer->Tick += gcnew System::EventHandler(this, &MessageManagerForm::timer_Tick);
+			// 
+			// id
+			// 
+			this->id->HeaderText = L"id";
+			this->id->Name = L"id";
+			this->id->ReadOnly = true;
+			this->id->Visible = false;
+			// 
+			// messageType
+			// 
+			this->messageType->HeaderText = L"messageType";
+			this->messageType->Name = L"messageType";
+			this->messageType->ReadOnly = true;
+			this->messageType->Visible = false;
+			// 
+			// fromId
+			// 
+			this->fromId->HeaderText = L"fromId";
+			this->fromId->Name = L"fromId";
+			this->fromId->ReadOnly = true;
+			this->fromId->Visible = false;
+			// 
+			// toId
+			// 
+			this->toId->HeaderText = L"toId";
+			this->toId->Name = L"toId";
+			this->toId->ReadOnly = true;
+			this->toId->Visible = false;
+			// 
+			// Отправитель
+			// 
+			this->Отправитель->HeaderText = L"from";
+			this->Отправитель->Name = L"Отправитель";
+			this->Отправитель->ReadOnly = true;
+			// 
+			// Получатель
+			// 
+			this->Получатель->HeaderText = L"to";
+			this->Получатель->Name = L"Получатель";
+			this->Получатель->ReadOnly = true;
+			// 
+			// Тема
+			// 
+			this->Тема->HeaderText = L"label";
+			this->Тема->Name = L"Тема";
+			this->Тема->ReadOnly = true;
 			// 
 			// MessageManagerForm
 			// 
@@ -236,6 +333,34 @@ namespace clientCourse {
 
 		}
 #pragma endregion
+
+private: void createMessage(std::vector<char> &mass, int &offset)
+{
+	__int64 Account = accountID;
+	Actions ActionID = action_message_list;
+	int PacketID = 0;
+	int PacketCountExpected = 0;
+
+	mass.resize(200);
+
+	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
+
+	offset = getHeaderSize();
+}
+
+private: void loadData()
+{
+	int offset = 0;
+
+	std::vector<char> mass;
+
+	createMessage(mass, offset);
+
+	printCharMass(mass);
+
+	SendToServer(&mass[0], offset, _socket);
+}
+
 private: System::Void checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e) 
 {
 
@@ -243,13 +368,67 @@ private: System::Void checkBox_CheckedChanged(System::Object^  sender, System::E
 
 private: System::Void dataGridView1_CellDoubleClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) 
 {
-	int messageType = rand() % 3;///FIXME
-	messageForm = gcnew MessageForm(accountType, messageType);
+	this->timer->Stop();
+
+	int messageType = Convert::ToInt32(dataGridView1->Rows[e->RowIndex]->Cells[1]->Value->ToString());
+	int messageID = Convert::ToInt32(dataGridView1->Rows[e->RowIndex]->Cells[0]->Value->ToString());
+	this->messageForm = gcnew MessageForm(accountType, messageType, messageID, false, -1);
 
 	this->Hide();
 	messageForm->ShowDialog();
 	this->Show();
 	this->Activate();
+
+	delete this->messageForm;
+	this->timer->Start();
+}
+
+private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) 
+{
+	if (!ServerMessageQueue.empty())
+	{
+		std::vector<char> q = ServerMessageQueue.front();
+		ServerMessageQueue.erase(ServerMessageQueue.begin());
+
+		printCharMass(q);
+		DataFormat d;
+		readHeader(q, d);
+		int offset = getHeaderSize();
+
+		if (d.ActionID == action_message_list_response)
+		{
+			int count;
+			readIntFromMessage(q, count, offset);
+
+			for (int i(0); i < count; i++)
+			{
+				int id;
+				int fromId;
+				int toId;
+				std::string label;
+				int messageType;
+				std::string fromName;
+				std::string toName;
+
+				readIntFromMessage(q, id, offset);
+				readIntFromMessage(q, fromId, offset);
+				readIntFromMessage(q, toId, offset);
+				readStringFromMessage(q, label, offset);
+				readIntFromMessage(q, messageType, offset);
+				readStringFromMessage(q, fromName, offset);
+				readStringFromMessage(q, toName, offset);
+
+				this->dataGridView1->Rows->Add();
+				this->dataGridView1->Rows[i]->Cells[0]->Value = id.ToString();
+				this->dataGridView1->Rows[i]->Cells[1]->Value = messageType.ToString();
+				this->dataGridView1->Rows[i]->Cells[2]->Value = fromId.ToString();
+				this->dataGridView1->Rows[i]->Cells[3]->Value = toId.ToString();
+				this->dataGridView1->Rows[i]->Cells[4]->Value = gcnew System::String(fromName.c_str());
+				this->dataGridView1->Rows[i]->Cells[5]->Value = gcnew System::String(toName.c_str());
+				this->dataGridView1->Rows[i]->Cells[6]->Value = gcnew System::String(label.c_str());
+			}
+		}
+	}
 }
 };
 }

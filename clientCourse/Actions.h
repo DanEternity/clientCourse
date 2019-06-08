@@ -1,14 +1,34 @@
 #pragma once
 
-enum Actions
-{
+enum Actions { 
 	action_ping = 0,
 	action_ping_response,
 	action_auth,
 	action_auth_fail,
 	action_auth_success,
 	action_conf_user,
-	action_conf_user_response
+	action_conf_user_responce,
+	action_conf_full_info,
+	action_conf_full_info_response,
+	action_error,
+	action_get_conf_members,
+	action_get_conf_members_response,
+	action_update_conf_info,
+	action_update_conf_info_response,
+	action_leave_conf,
+	action_leave_conf_response,
+	action_delete_conf,
+	action_delete_conf_response,
+	action_message_list,
+	action_message_list_response,
+	action_get_message,
+	action_get_message_response,
+	action_search_conf,
+	action_search_conf_response,
+	action_join_conf,
+	action_join_conf_response,
+	action_send_message,
+	action_send_message_response,
 };
 
 struct DataFormat

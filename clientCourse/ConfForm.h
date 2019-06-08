@@ -22,17 +22,31 @@ namespace clientCourse {
 	public: int accountType;
 	public: MemberManagerForm ^memberManagerForm;
 	public: MessageManagerForm ^messageManagerForm;
+	public: int confID;
+	public: bool inEdit;
+	public: int adminId;
+	public: bool alreadyIn;
 	private: System::Windows::Forms::Button^  buttonDelete;
+	private: System::Windows::Forms::Timer^  timer;
+	private: System::Windows::Forms::TextBox^  textBoxConfName;
+	private: System::Windows::Forms::TextBox^  textBoxDates;
+	private: System::Windows::Forms::TextBox^  textBoxCityName;
+	private: System::Windows::Forms::TextBox^  textBoxThemeName;
 	private: System::Windows::Forms::Button^  buttonLeave;
 			 
 	public:
-		ConfForm(int accountType)//What conf should we create? ///FIXME
+		ConfForm(int accountType, int confID, int alreadyIn)//What conf should we create? ///FIXME
 		{
 			InitializeComponent();
 			
-			accountType = accountType;
-			messageManagerForm = gcnew MessageManagerForm(accountType);
-			memberManagerForm = gcnew MemberManagerForm(accountType);
+			this->accountType = accountType;
+			this->confID = confID;
+			this->inEdit = false;
+			this->alreadyIn = (alreadyIn == ALREADY_IN ? true : false);
+
+			loadData();
+
+			timer->Start();
 
 			if (accountType == ACCOUNT_TYPE_ADMINISTRATOR)
 			{
@@ -72,6 +86,9 @@ namespace clientCourse {
 
 				this->buttonLeave->Location = System::Drawing::Point(3 + (size + offset) * 1, 435);
 				this->buttonLeave->Size = System::Drawing::Size(size, 29);
+
+				if (!this->alreadyIn)
+					buttonLeave->Text = L"Вступить";
 			}
 		}
 
@@ -86,21 +103,19 @@ namespace clientCourse {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Label^  labelConfName;
-	protected:
-	private: System::Windows::Forms::Label^  labelDates;
-	private: System::Windows::Forms::Label^  label1;
+
 	private: System::Windows::Forms::Panel^  panel1;
 	private: System::Windows::Forms::Button^  buttonSettings;
 	private: System::Windows::Forms::Button^  buttonMembers;
 	private: System::Windows::Forms::Button^  buttonMessages;
 	private: System::Windows::Forms::RichTextBox^  richTextBox1;
+	private: System::ComponentModel::IContainer^  components;
 
 	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -109,9 +124,7 @@ namespace clientCourse {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->labelConfName = (gcnew System::Windows::Forms::Label());
-			this->labelDates = (gcnew System::Windows::Forms::Label());
-			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->components = (gcnew System::ComponentModel::Container());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->buttonDelete = (gcnew System::Windows::Forms::Button());
 			this->buttonLeave = (gcnew System::Windows::Forms::Button());
@@ -119,38 +132,13 @@ namespace clientCourse {
 			this->buttonMembers = (gcnew System::Windows::Forms::Button());
 			this->buttonMessages = (gcnew System::Windows::Forms::Button());
 			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
+			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->textBoxConfName = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxDates = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxCityName = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxThemeName = (gcnew System::Windows::Forms::TextBox());
 			this->panel1->SuspendLayout();
 			this->SuspendLayout();
-			// 
-			// labelConfName
-			// 
-			this->labelConfName->AutoSize = true;
-			this->labelConfName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18));
-			this->labelConfName->Location = System::Drawing::Point(12, 9);
-			this->labelConfName->Name = L"labelConfName";
-			this->labelConfName->Size = System::Drawing::Size(156, 29);
-			this->labelConfName->TabIndex = 0;
-			this->labelConfName->Text = L"<ConfName>";
-			// 
-			// labelDates
-			// 
-			this->labelDates->AutoSize = true;
-			this->labelDates->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18));
-			this->labelDates->Location = System::Drawing::Point(12, 38);
-			this->labelDates->Name = L"labelDates";
-			this->labelDates->Size = System::Drawing::Size(103, 29);
-			this->labelDates->TabIndex = 1;
-			this->labelDates->Text = L"<Dates>";
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18));
-			this->label1->Location = System::Drawing::Point(174, 38);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(81, 29);
-			this->label1->TabIndex = 2;
-			this->label1->Text = L"<City>";
 			// 
 			// panel1
 			// 
@@ -223,21 +211,80 @@ namespace clientCourse {
 			// 
 			// richTextBox1
 			// 
+			this->richTextBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
 			this->richTextBox1->Location = System::Drawing::Point(3, 3);
 			this->richTextBox1->Name = L"richTextBox1";
+			this->richTextBox1->ReadOnly = true;
 			this->richTextBox1->Size = System::Drawing::Size(750, 426);
 			this->richTextBox1->TabIndex = 0;
-			this->richTextBox1->Text = L"";
+			this->richTextBox1->Text = L"Информация о конференции";
+			// 
+			// timer
+			// 
+			this->timer->Tick += gcnew System::EventHandler(this, &ConfForm::timer_Tick);
+			// 
+			// textBoxConfName
+			// 
+			this->textBoxConfName->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBoxConfName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->textBoxConfName->Location = System::Drawing::Point(12, 6);
+			this->textBoxConfName->MaximumSize = System::Drawing::Size(755, 29);
+			this->textBoxConfName->MinimumSize = System::Drawing::Size(226, 29);
+			this->textBoxConfName->Name = L"textBoxConfName";
+			this->textBoxConfName->ReadOnly = true;
+			this->textBoxConfName->Size = System::Drawing::Size(755, 29);
+			this->textBoxConfName->TabIndex = 5;
+			this->textBoxConfName->Text = L"Название конференции";
+			// 
+			// textBoxDates
+			// 
+			this->textBoxDates->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBoxDates->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->textBoxDates->Location = System::Drawing::Point(12, 35);
+			this->textBoxDates->MaximumSize = System::Drawing::Size(220, 29);
+			this->textBoxDates->MinimumSize = System::Drawing::Size(0, 29);
+			this->textBoxDates->Name = L"textBoxDates";
+			this->textBoxDates->ReadOnly = true;
+			this->textBoxDates->Size = System::Drawing::Size(220, 29);
+			this->textBoxDates->TabIndex = 6;
+			this->textBoxDates->Text = L"Даты проведения";
+			// 
+			// textBoxCityName
+			// 
+			this->textBoxCityName->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBoxCityName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->textBoxCityName->Location = System::Drawing::Point(238, 35);
+			this->textBoxCityName->MaximumSize = System::Drawing::Size(120, 29);
+			this->textBoxCityName->MinimumSize = System::Drawing::Size(0, 29);
+			this->textBoxCityName->Name = L"textBoxCityName";
+			this->textBoxCityName->ReadOnly = true;
+			this->textBoxCityName->Size = System::Drawing::Size(120, 29);
+			this->textBoxCityName->TabIndex = 7;
+			this->textBoxCityName->Text = L"Город";
+			// 
+			// textBoxThemeName
+			// 
+			this->textBoxThemeName->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBoxThemeName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->textBoxThemeName->Location = System::Drawing::Point(364, 35);
+			this->textBoxThemeName->MaximumSize = System::Drawing::Size(403, 29);
+			this->textBoxThemeName->MinimumSize = System::Drawing::Size(0, 29);
+			this->textBoxThemeName->Name = L"textBoxThemeName";
+			this->textBoxThemeName->ReadOnly = true;
+			this->textBoxThemeName->Size = System::Drawing::Size(403, 29);
+			this->textBoxThemeName->TabIndex = 8;
+			this->textBoxThemeName->Text = L"Тематика";
 			// 
 			// ConfForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(784, 561);
+			this->Controls->Add(this->textBoxThemeName);
+			this->Controls->Add(this->textBoxCityName);
+			this->Controls->Add(this->textBoxDates);
+			this->Controls->Add(this->textBoxConfName);
 			this->Controls->Add(this->panel1);
-			this->Controls->Add(this->label1);
-			this->Controls->Add(this->labelDates);
-			this->Controls->Add(this->labelConfName);
 			this->Location = System::Drawing::Point(200, 50);
 			this->Name = L"ConfForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::Manual;
@@ -249,38 +296,380 @@ namespace clientCourse {
 		}
 #pragma endregion
 
+private: void createMessage(std::vector<char> &mass, int &offset)
+{
+	__int64 Account = accountID;
+	Actions ActionID = action_conf_full_info;
+	int PacketID = 0;
+	int PacketCountExpected = 0;
+
+	mass.resize(200);
+
+	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
+
+	//int confID = 900;//error
+	int confID = this->confID;
+
+	offset = getHeaderSize();
+	writeIntToMessage(mass, confID, offset);
+}
+
+private: void loadData()
+{
+	int offset = 0;
+
+	std::vector<char> mass;
+
+	createMessage(mass, offset);
+
+	printCharMass(mass);
+
+	SendToServer(&mass[0], offset, _socket);
+}
+
 //Сообщения
 private: System::Void buttonMessages_Click(System::Object^  sender, System::EventArgs^  e) 
 {
+	this->timer->Stop();
+	messageManagerForm = gcnew MessageManagerForm(accountType);
+
 	this->Hide();
 	messageManagerForm->ShowDialog();
 	this->Show();
 	this->Activate();
+
+	delete messageManagerForm;
+	this->timer->Start();
+}
+
+private: void createSettingsMessage(std::vector<char> &mass, int &offset)
+{
+	__int64 Account = accountID;
+	Actions ActionID = action_update_conf_info;
+	int PacketID = 0;
+	int PacketCountExpected = 0;
+
+	mass.resize(200);
+
+	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
+
+	offset = getHeaderSize();
+
+	int count = 1;
+	int id = this->confID;;
+	std::string name = getStringFromSystemString(this->textBoxConfName->Text);
+	std::string date = getStringFromSystemString(this->textBoxDates->Text);
+	int themeId = -1;
+	int cityId = -1;
+	std::string description = getStringFromSystemString(this->richTextBox1->Text);
+	int admin = this->adminId;
+	std::string cityName = getStringFromSystemString(this->textBoxCityName->Text);
+	std::string themeName = getStringFromSystemString(this->textBoxThemeName->Text);
+
+	int newSize = offset + 5 * sizeof(int) + name.size() + date.size() + description.size() + cityName.size() + themeName.size();
+	mass.resize(200 + newSize);
+
+	writeIntToMessage(mass, count, offset);
+	for (int i(0); i < count; i++)//count = 1
+	{
+		writeIntToMessage(mass, id, offset);
+		writeStringToMessage(mass, name, offset);
+		writeStringToMessage(mass, date, offset);
+		writeIntToMessage(mass, themeId, offset);
+		writeIntToMessage(mass, cityId, offset);
+		writeStringToMessage(mass, description, offset);
+		writeIntToMessage(mass, admin, offset);
+		writeStringToMessage(mass, cityName, offset);
+		writeStringToMessage(mass, themeName, offset);
+	}
 }
 
 //Участники
 private: System::Void buttonMembers_Click(System::Object^  sender, System::EventArgs^  e) 
 {
+	this->timer->Stop();
+	memberManagerForm = gcnew MemberManagerForm(accountType, confID);
+
 	this->Hide();
 	memberManagerForm->ShowDialog();
 	this->Show();
 	this->Activate();
+
+	delete memberManagerForm;
+	this->timer->Start();
 }
 
 //Настройки
 private: System::Void buttonSettings_Click(System::Object^  sender, System::EventArgs^  e) 
 {
+	if (!inEdit)
+	{
+		inEdit = true;
+		this->textBoxConfName->ReadOnly = false;
+		this->textBoxDates->ReadOnly = false;
+		this->textBoxCityName->ReadOnly = false;
+		this->textBoxThemeName->ReadOnly = false;
 
+		this->richTextBox1->ReadOnly = false;
+
+		this->buttonSettings->Text = L"Сохранить";
+	}
+	else
+	{
+		this->textBoxConfName->ReadOnly = true;
+		this->textBoxDates->ReadOnly = true;
+		this->textBoxCityName->ReadOnly = true;
+		this->textBoxThemeName->ReadOnly = true;
+
+		this->richTextBox1->ReadOnly = true;
+
+		this->buttonSettings->Text = L"Наcтройки";
+
+		std::vector<char> mass;
+		int offset = 0;
+		createSettingsMessage(mass, offset);
+
+		printCharMass(mass);
+
+		SendToServer(&mass[0], offset, _socket);
+		inEdit = false;
+	}
+}
+
+private: void createLeaveMessage(std::vector<char> &mass, int &offset)
+{
+	__int64 Account = accountID;
+	Actions ActionID = action_leave_conf;
+	int PacketID = 0;
+	int PacketCountExpected = 0;
+
+	mass.resize(200);
+
+	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
+
+	offset = getHeaderSize();
+	
+	int confID = this->confID;
+
+	writeIntToMessage(mass, confID, offset);
+}
+
+private: void createJoinMessage(std::vector<char> &mass, int &offset)
+{
+	__int64 Account = accountID;
+	Actions ActionID = action_join_conf;
+	int PacketID = 0;
+	int PacketCountExpected = 0;
+
+	mass.resize(200);
+
+	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
+
+	offset = getHeaderSize();
+
+	int confID = this->confID;
+
+	writeIntToMessage(mass, confID, offset);
 }
 
 //Покинуть
 private: System::Void buttonLeave_Click(System::Object^  sender, System::EventArgs^  e) 
 {
+	if (this->alreadyIn)
+	{
+		if (MessageBox::Show(
+			"Вы уверены?",
+			"Вопрос",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Question,
+			MessageBoxDefaultButton::Button2,
+			MessageBoxOptions::DefaultDesktopOnly
+		) == System::Windows::Forms::DialogResult::No)
+			return;
+
+		std::vector<char> mass;
+		int offset = 0;
+
+		createLeaveMessage(mass, offset);
+
+		printCharMass(mass);
+
+		SendToServer(&mass[0], offset, _socket);
+	}
+	else
+	{
+		if (MessageBox::Show(
+			"Вы уверены?",
+			"Вопрос",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Question,
+			MessageBoxDefaultButton::Button2,
+			MessageBoxOptions::DefaultDesktopOnly
+		) == System::Windows::Forms::DialogResult::No)
+			return;
+
+		std::vector<char> mass;
+		int offset = 0;
+
+		createJoinMessage(mass, offset);
+
+		printCharMass(mass);
+
+		SendToServer(&mass[0], offset, _socket);
+	}
+}
+
+private: void createDeleteMessage(std::vector<char> &mass, int &offset)
+{
+	__int64 Account = accountID;
+	Actions ActionID = action_delete_conf;
+	int PacketID = 0;
+	int PacketCountExpected = 0;
+
+	mass.resize(200);
+
+	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
+
+	offset = getHeaderSize();
+
+	int confID = this->confID;
+
+	writeIntToMessage(mass, confID, offset);
 }
 
 //Удалить
 private: System::Void buttonDelete_Click(System::Object^  sender, System::EventArgs^  e) 
 {
+	//std::vector<char> mass;
+	//int offset = 0;
+
+	//createDeleteMessage(mass, offset);
+}
+
+//timer
+private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
+{
+	if (!ServerMessageQueue.empty())
+	{
+		std::vector<char> q = ServerMessageQueue.front();
+		ServerMessageQueue.erase(ServerMessageQueue.begin());
+
+		printCharMass(q);
+		DataFormat d;
+		readHeader(q, d);
+		int offset = getHeaderSize();
+
+		if (d.ActionID == action_error)///FIXME
+		{
+			MessageBox::Show(
+				"Указанная конференция не существует",
+				"Ошибка",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Error,
+				MessageBoxDefaultButton::Button1,
+				MessageBoxOptions::DefaultDesktopOnly
+			);
+
+			this->Close();
+
+			return;
+		}
+
+		if (d.ActionID == action_update_conf_info_response)
+		{
+			MessageBox::Show(
+				"Значения успешно изменены",
+				"Успех",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Information,
+				MessageBoxDefaultButton::Button1,
+				MessageBoxOptions::DefaultDesktopOnly
+			);
+
+			this->Activate();
+			return;
+		}
+
+		if (d.ActionID == action_leave_conf_response)
+		{
+			MessageBox::Show(
+				"Конференция успешно покинута",
+				"Успех",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Information,
+				MessageBoxDefaultButton::Button1,
+				MessageBoxOptions::DefaultDesktopOnly
+			);
+
+			this->Activate();
+			return;
+		}
+
+		if (d.ActionID == action_conf_full_info_response)
+		{
+			int count;//=1
+			readIntFromMessage(q, count, offset);
+			for (int i(0); i < count; i++)
+			{
+				int id;
+				std::string name;
+				std::string date;
+				int themeId;
+				int cityId;
+				std::string description;
+				int admin;
+				std::string cityName;
+				std::string themeName;
+
+				readIntFromMessage(q, id, offset);
+				readStringFromMessage(q, name, offset);
+				readStringFromMessage(q, date, offset);
+				readIntFromMessage(q, themeId, offset);
+				readIntFromMessage(q, cityId, offset);
+				readStringFromMessage(q, description, offset);
+				readIntFromMessage(q, admin, offset);
+				readStringFromMessage(q, cityName, offset);
+				readStringFromMessage(q, themeName, offset);
+
+				this->textBoxConfName->Text = gcnew System::String(name.c_str());
+				this->textBoxDates->Text = gcnew System::String(date.c_str());
+				this->textBoxCityName->Text = gcnew System::String(cityName.c_str());
+				this->textBoxThemeName->Text = gcnew System::String(themeName.c_str());
+
+				this->richTextBox1->Text = gcnew System::String(description.c_str());
+
+				this->adminId = admin;
+			}
+		}
+
+		if (d.ActionID == action_delete_conf_response)
+		{
+			MessageBox::Show(
+				"Конференция успешно покинута",
+				"Успех",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Information,
+				MessageBoxDefaultButton::Button1,
+				MessageBoxOptions::DefaultDesktopOnly
+			);
+
+			this->Close();
+		}
+
+		if (d.ActionID == action_join_conf_response)
+		{
+			MessageBox::Show(
+				"Вы были добавлены на конференцию",
+				"Успех",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Information,
+				MessageBoxDefaultButton::Button1,
+				MessageBoxOptions::DefaultDesktopOnly
+			);
+
+			this->Activate();
+		}
+	}
 }
 };
 }

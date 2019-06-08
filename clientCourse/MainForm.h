@@ -45,9 +45,8 @@ namespace clientCourse {
 
 			this->accountType = accountType;
 
-			searchForm = gcnew SearchForm(accountType);
-			messageManagerForm = gcnew MessageManagerForm(accountType);
-			profileForm = gcnew ProfileForm(accountType);
+			//searchForm = gcnew SearchForm(accountType);
+			//profileForm = gcnew ProfileForm(accountType);
 
 			if (accountType == ACCOUNT_TYPE_ADMINISTRATOR)
 			{
@@ -399,11 +398,13 @@ private: System::Void buttonConf_Click(System::Object^  sender, System::EventArg
 {
 	setButtonActive(this->buttonConf);
 
-	confManagerForm = gcnew ConfManagerForm(accountType);
+	this->confManagerForm = gcnew ConfManagerForm(accountType);
 	this->Hide();
 	confManagerForm->ShowDialog();
 	this->Show();
 	this->Activate();
+
+	delete confManagerForm;
 }
 
 //Настройки
@@ -417,10 +418,14 @@ private: System::Void buttonMessages_Click(System::Object^  sender, System::Even
 {
 	setButtonActive(this->buttonMessages);
 
+	this->messageManagerForm = gcnew MessageManagerForm(accountType);
+
 	this->Hide();
 	messageManagerForm->ShowDialog();
 	this->Show();
 	this->Activate();
+
+	delete messageManagerForm;
 }
 
 //Поиск
@@ -428,10 +433,14 @@ private: System::Void buttonSearch_Click(System::Object^  sender, System::EventA
 {
 	setButtonActive(this->buttonSearch);
 
+	this->searchForm = gcnew SearchForm(accountType);
+
 	this->Hide();
 	searchForm->ShowDialog();
 	this->Show();
 	this->Activate();
+
+	delete searchForm;
 }
 
 //Выход
@@ -445,10 +454,8 @@ private: System::Void buttonExit_Click(System::Object^  sender, System::EventArg
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) 
 {
 	//std::cout << "MainFormTimerUpdate " << this->q << std::endl;
-	q++;
+	//q++;
 	UpdateSocket(_socket);
-
-	timer1->Start();
 }
 };
 }

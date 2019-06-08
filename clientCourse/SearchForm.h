@@ -20,9 +20,22 @@ namespace clientCourse {
 	public ref class SearchForm : public System::Windows::Forms::Form
 	{
 	public: int accountType;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column1;
-	public:
-	public: ScientistForm ^ scientistForm;
+
+	private: System::Windows::Forms::DataGridView^  dataGridView1;
+	private: System::Windows::Forms::TextBox^  textBoxSearchPattern;
+
+	private: System::Windows::Forms::Button^  buttonFind;
+	private: System::Windows::Forms::Timer^  timer;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  id;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  alreadyIn;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  confName;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  theme;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Date;
+
+
+
+
+
 	public: ConfForm ^ confForm;
 
 	public: SearchForm(int accountType)
@@ -30,8 +43,8 @@ namespace clientCourse {
 		InitializeComponent();
 		
 		this->accountType = accountType;
-		scientistForm = gcnew ScientistForm(accountType);
-		confForm = gcnew ConfForm(accountType);
+
+		this->timer->Start();
 	}
 
 	protected:
@@ -45,30 +58,13 @@ namespace clientCourse {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Panel^  panel1;
-	private: System::Windows::Forms::Label^  labelConfTheme;
-	private: System::Windows::Forms::TextBox^  textBoxConfTheme;
-	private: System::Windows::Forms::Button^  buttonFind;
-	private: System::Windows::Forms::CheckBox^  checkBoxScientistFind;
-	private: System::Windows::Forms::TextBox^  textBoxDataEnd;
-	private: System::Windows::Forms::TextBox^  textBoxDataStart;
-	private: System::Windows::Forms::Label^  labelDataEnd;
-	private: System::Windows::Forms::Label^  labelDataStart;
-	private: System::Windows::Forms::TextBox^  textBoxScientistName;
-	private: System::Windows::Forms::Label^  labelScientistName;
-	private: System::Windows::Forms::TextBox^  textBoxConfName;
-	private: System::Windows::Forms::Label^  labelConfName;
-	private: System::Windows::Forms::TextBox^  textBoxCity;
-	private: System::Windows::Forms::Label^  labelCity;
-	private: System::Windows::Forms::Panel^  panel2;
-	private: System::Windows::Forms::DataGridView^  dataGridView1;
-	private: System::Windows::Forms::CheckBox^  checkBoxConfFind;
-
+	private: System::ComponentModel::IContainer^  components;
+	protected:
 	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -77,264 +73,241 @@ namespace clientCourse {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->buttonFind = (gcnew System::Windows::Forms::Button());
-			this->checkBoxConfFind = (gcnew System::Windows::Forms::CheckBox());
-			this->checkBoxScientistFind = (gcnew System::Windows::Forms::CheckBox());
-			this->textBoxDataEnd = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxDataStart = (gcnew System::Windows::Forms::TextBox());
-			this->labelDataEnd = (gcnew System::Windows::Forms::Label());
-			this->labelDataStart = (gcnew System::Windows::Forms::Label());
-			this->textBoxScientistName = (gcnew System::Windows::Forms::TextBox());
-			this->labelScientistName = (gcnew System::Windows::Forms::Label());
-			this->textBoxConfName = (gcnew System::Windows::Forms::TextBox());
-			this->labelConfName = (gcnew System::Windows::Forms::Label());
-			this->textBoxCity = (gcnew System::Windows::Forms::TextBox());
-			this->labelCity = (gcnew System::Windows::Forms::Label());
-			this->labelConfTheme = (gcnew System::Windows::Forms::Label());
-			this->textBoxConfTheme = (gcnew System::Windows::Forms::TextBox());
-			this->panel2 = (gcnew System::Windows::Forms::Panel());
+			this->components = (gcnew System::ComponentModel::Container());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
-			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->panel1->SuspendLayout();
-			this->panel2->SuspendLayout();
+			this->textBoxSearchPattern = (gcnew System::Windows::Forms::TextBox());
+			this->buttonFind = (gcnew System::Windows::Forms::Button());
+			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->alreadyIn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->confName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->theme = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Date = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// panel1
+			// dataGridView1
 			// 
-			this->panel1->Controls->Add(this->buttonFind);
-			this->panel1->Controls->Add(this->checkBoxConfFind);
-			this->panel1->Controls->Add(this->checkBoxScientistFind);
-			this->panel1->Controls->Add(this->textBoxDataEnd);
-			this->panel1->Controls->Add(this->textBoxDataStart);
-			this->panel1->Controls->Add(this->labelDataEnd);
-			this->panel1->Controls->Add(this->labelDataStart);
-			this->panel1->Controls->Add(this->textBoxScientistName);
-			this->panel1->Controls->Add(this->labelScientistName);
-			this->panel1->Controls->Add(this->textBoxConfName);
-			this->panel1->Controls->Add(this->labelConfName);
-			this->panel1->Controls->Add(this->textBoxCity);
-			this->panel1->Controls->Add(this->labelCity);
-			this->panel1->Controls->Add(this->labelConfTheme);
-			this->panel1->Controls->Add(this->textBoxConfTheme);
-			this->panel1->Location = System::Drawing::Point(12, 12);
-			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(245, 537);
-			this->panel1->TabIndex = 0;
+			this->dataGridView1->AllowUserToAddRows = false;
+			this->dataGridView1->AllowUserToDeleteRows = false;
+			this->dataGridView1->AllowUserToResizeColumns = false;
+			this->dataGridView1->AllowUserToResizeRows = false;
+			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Control;
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dataGridView1->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(5) {
+				this->id, this->alreadyIn,
+					this->confName, this->theme, this->Date
+			});
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::SystemColors::Window;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dataGridView1->DefaultCellStyle = dataGridViewCellStyle2;
+			this->dataGridView1->Location = System::Drawing::Point(12, 47);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->ReadOnly = true;
+			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Control;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dataGridView1->RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			this->dataGridView1->RowHeadersVisible = false;
+			this->dataGridView1->Size = System::Drawing::Size(760, 502);
+			this->dataGridView1->TabIndex = 0;
+			this->dataGridView1->CellDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &SearchForm::dataGridView1_CellDoubleClick);
+			// 
+			// textBoxSearchPattern
+			// 
+			this->textBoxSearchPattern->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->textBoxSearchPattern->Location = System::Drawing::Point(12, 12);
+			this->textBoxSearchPattern->Name = L"textBoxSearchPattern";
+			this->textBoxSearchPattern->Size = System::Drawing::Size(651, 29);
+			this->textBoxSearchPattern->TabIndex = 1;
+			this->textBoxSearchPattern->Text = L"Введите строку для поиска";
 			// 
 			// buttonFind
 			// 
 			this->buttonFind->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->buttonFind->Location = System::Drawing::Point(3, 496);
+			this->buttonFind->Location = System::Drawing::Point(669, 12);
 			this->buttonFind->Name = L"buttonFind";
-			this->buttonFind->Size = System::Drawing::Size(236, 38);
-			this->buttonFind->TabIndex = 1;
+			this->buttonFind->Size = System::Drawing::Size(103, 29);
+			this->buttonFind->TabIndex = 2;
 			this->buttonFind->Text = L"Поиск";
 			this->buttonFind->UseVisualStyleBackColor = true;
 			this->buttonFind->Click += gcnew System::EventHandler(this, &SearchForm::buttonFind_Click);
 			// 
-			// checkBoxConfFind
+			// timer
 			// 
-			this->checkBoxConfFind->AutoSize = true;
-			this->checkBoxConfFind->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->checkBoxConfFind->Location = System::Drawing::Point(8, 367);
-			this->checkBoxConfFind->Name = L"checkBoxConfFind";
-			this->checkBoxConfFind->Size = System::Drawing::Size(219, 28);
-			this->checkBoxConfFind->TabIndex = 11;
-			this->checkBoxConfFind->Text = L"Искать конференции";
-			this->checkBoxConfFind->UseVisualStyleBackColor = true;
+			this->timer->Tick += gcnew System::EventHandler(this, &SearchForm::timer_Tick);
 			// 
-			// checkBoxScientistFind
+			// id
 			// 
-			this->checkBoxScientistFind->AutoSize = true;
-			this->checkBoxScientistFind->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->checkBoxScientistFind->Location = System::Drawing::Point(8, 333);
-			this->checkBoxScientistFind->Name = L"checkBoxScientistFind";
-			this->checkBoxScientistFind->Size = System::Drawing::Size(161, 28);
-			this->checkBoxScientistFind->TabIndex = 1;
-			this->checkBoxScientistFind->Text = L"Искать ученых";
-			this->checkBoxScientistFind->UseVisualStyleBackColor = true;
+			this->id->HeaderText = L"id";
+			this->id->Name = L"id";
+			this->id->ReadOnly = true;
+			this->id->Visible = false;
 			// 
-			// textBoxDataEnd
+			// alreadyIn
 			// 
-			this->textBoxDataEnd->Location = System::Drawing::Point(8, 282);
-			this->textBoxDataEnd->Name = L"textBoxDataEnd";
-			this->textBoxDataEnd->Size = System::Drawing::Size(231, 20);
-			this->textBoxDataEnd->TabIndex = 10;
+			this->alreadyIn->HeaderText = L"alredyIn";
+			this->alreadyIn->Name = L"alreadyIn";
+			this->alreadyIn->ReadOnly = true;
+			this->alreadyIn->Visible = false;
 			// 
-			// textBoxDataStart
+			// confName
 			// 
-			this->textBoxDataStart->Location = System::Drawing::Point(8, 232);
-			this->textBoxDataStart->Name = L"textBoxDataStart";
-			this->textBoxDataStart->Size = System::Drawing::Size(231, 20);
-			this->textBoxDataStart->TabIndex = 9;
+			this->confName->HeaderText = L"Название конференции";
+			this->confName->Name = L"confName";
+			this->confName->ReadOnly = true;
+			this->confName->Width = 431;
 			// 
-			// labelDataEnd
+			// theme
 			// 
-			this->labelDataEnd->AutoSize = true;
-			this->labelDataEnd->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->labelDataEnd->Location = System::Drawing::Point(4, 255);
-			this->labelDataEnd->Name = L"labelDataEnd";
-			this->labelDataEnd->Size = System::Drawing::Size(202, 24);
-			this->labelDataEnd->TabIndex = 8;
-			this->labelDataEnd->Text = L"Дата начала периода";
+			this->theme->HeaderText = L"Тематика";
+			this->theme->Name = L"theme";
+			this->theme->ReadOnly = true;
+			this->theme->Width = 225;
 			// 
-			// labelDataStart
+			// Date
 			// 
-			this->labelDataStart->AutoSize = true;
-			this->labelDataStart->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->labelDataStart->Location = System::Drawing::Point(4, 205);
-			this->labelDataStart->Name = L"labelDataStart";
-			this->labelDataStart->Size = System::Drawing::Size(202, 24);
-			this->labelDataStart->TabIndex = 7;
-			this->labelDataStart->Text = L"Дата начала периода";
-			// 
-			// textBoxScientistName
-			// 
-			this->textBoxScientistName->Location = System::Drawing::Point(8, 182);
-			this->textBoxScientistName->Name = L"textBoxScientistName";
-			this->textBoxScientistName->Size = System::Drawing::Size(231, 20);
-			this->textBoxScientistName->TabIndex = 6;
-			// 
-			// labelScientistName
-			// 
-			this->labelScientistName->AutoSize = true;
-			this->labelScientistName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->labelScientistName->Location = System::Drawing::Point(4, 155);
-			this->labelScientistName->Name = L"labelScientistName";
-			this->labelScientistName->Size = System::Drawing::Size(131, 24);
-			this->labelScientistName->TabIndex = 5;
-			this->labelScientistName->Text = L"ФИО ученого";
-			// 
-			// textBoxConfName
-			// 
-			this->textBoxConfName->Location = System::Drawing::Point(8, 132);
-			this->textBoxConfName->Name = L"textBoxConfName";
-			this->textBoxConfName->Size = System::Drawing::Size(231, 20);
-			this->textBoxConfName->TabIndex = 4;
-			// 
-			// labelConfName
-			// 
-			this->labelConfName->AutoSize = true;
-			this->labelConfName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->labelConfName->Location = System::Drawing::Point(4, 105);
-			this->labelConfName->Name = L"labelConfName";
-			this->labelConfName->Size = System::Drawing::Size(224, 24);
-			this->labelConfName->TabIndex = 3;
-			this->labelConfName->Text = L"Название конференции";
-			// 
-			// textBoxCity
-			// 
-			this->textBoxCity->Location = System::Drawing::Point(8, 82);
-			this->textBoxCity->Name = L"textBoxCity";
-			this->textBoxCity->Size = System::Drawing::Size(231, 20);
-			this->textBoxCity->TabIndex = 2;
-			// 
-			// labelCity
-			// 
-			this->labelCity->AutoSize = true;
-			this->labelCity->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->labelCity->Location = System::Drawing::Point(4, 55);
-			this->labelCity->Name = L"labelCity";
-			this->labelCity->Size = System::Drawing::Size(66, 24);
-			this->labelCity->TabIndex = 1;
-			this->labelCity->Text = L"Город";
-			// 
-			// labelConfTheme
-			// 
-			this->labelConfTheme->AutoSize = true;
-			this->labelConfTheme->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->labelConfTheme->Location = System::Drawing::Point(4, 5);
-			this->labelConfTheme->Name = L"labelConfTheme";
-			this->labelConfTheme->Size = System::Drawing::Size(223, 24);
-			this->labelConfTheme->TabIndex = 0;
-			this->labelConfTheme->Text = L"Тематика конференции";
-			// 
-			// textBoxConfTheme
-			// 
-			this->textBoxConfTheme->Location = System::Drawing::Point(8, 32);
-			this->textBoxConfTheme->Name = L"textBoxConfTheme";
-			this->textBoxConfTheme->Size = System::Drawing::Size(231, 20);
-			this->textBoxConfTheme->TabIndex = 1;
-			// 
-			// panel2
-			// 
-			this->panel2->Controls->Add(this->dataGridView1);
-			this->panel2->Location = System::Drawing::Point(263, 12);
-			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(509, 537);
-			this->panel2->TabIndex = 1;
-			// 
-			// dataGridView1
-			// 
-			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(1) { this->Column1 });
-			this->dataGridView1->Location = System::Drawing::Point(3, 5);
-			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(503, 483);
-			this->dataGridView1->TabIndex = 0;
-			this->dataGridView1->CellDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &SearchForm::dataGridView1_CellDoubleClick);
-			// 
-			// Column1
-			// 
-			this->Column1->HeaderText = L"Column1";
-			this->Column1->Name = L"Column1";
+			this->Date->HeaderText = L"Даты";
+			this->Date->Name = L"Date";
+			this->Date->ReadOnly = true;
 			// 
 			// SearchForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(784, 561);
-			this->Controls->Add(this->panel2);
-			this->Controls->Add(this->panel1);
+			this->Controls->Add(this->buttonFind);
+			this->Controls->Add(this->textBoxSearchPattern);
+			this->Controls->Add(this->dataGridView1);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Location = System::Drawing::Point(200, 50);
 			this->Name = L"SearchForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::Manual;
 			this->Text = L"SearchForm";
-			this->panel1->ResumeLayout(false);
-			this->panel1->PerformLayout();
-			this->panel2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
 
+private: void createMessage(std::vector<char> &mass, int &offset)
+{
+	__int64 Account = accountID;
+	Actions ActionID = action_search_conf;
+	int PacketID = 0;
+	int PacketCountExpected = 0;
+
+	mass.resize(200);
+
+	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
+
+	offset = getHeaderSize();
+	
+	std::string pattern = getStringFromSystemString(this->textBoxSearchPattern->Text);
+	writeStringToMessage(mass, pattern, offset);
+}
+
+private: void loadData()
+{
+	int offset = 0;
+
+	std::vector<char> mass;
+
+	createMessage(mass, offset);
+
+	printCharMass(mass);
+
+	SendToServer(&mass[0], offset, _socket);
+}
 
 private: System::Void buttonFind_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-	String ^confName = this->textBoxConfName->Text;
-	String ^city = this->textBoxCity->Text;
-	String ^confTheme = this->textBoxConfTheme->Text;
-	String ^DataStart = this->textBoxDataStart->Text;
-	String ^DataEnd = this->textBoxDataEnd->Text;
-	String ^ScientistName = this->textBoxScientistName->Text;
-
-	//send search request
+	this->dataGridView1->Rows->Clear();
+	loadData();
 }
-
-#pragma region Functions
-private:
-
-#pragma endregion Functions
 
 private: System::Void dataGridView1_CellDoubleClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) 
 {
-	//Scientist
-	if (this->checkBoxScientistFind->Checked)
+	timer->Stop();
+	confForm = gcnew ConfForm(accountType, Convert::ToInt32(dataGridView1->Rows[e->RowIndex]->Cells[0]->Value->ToString())
+		, Convert::ToInt32(dataGridView1->Rows[e->RowIndex]->Cells[1]->Value->ToString()));
+
+	this->Hide();
+	confForm->ShowDialog();
+	this->Show();
+	this->Activate();
+
+	delete confForm;
+	timer->Start();
+}
+
+private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) 
+{
+	if (!ServerMessageQueue.empty())
 	{
-		this->Hide();
-		scientistForm->ShowDialog();
-		this->Show();
-		this->Activate();
-	}
-	else if (this->checkBoxConfFind->Checked)
-	{
-		this->Hide();
-		confForm->ShowDialog();
-		this->Show();
-		this->Activate();
+		std::vector<char> q = ServerMessageQueue.front();
+		ServerMessageQueue.erase(ServerMessageQueue.begin());
+
+		printCharMass(q);
+		DataFormat d;
+		readHeader(q, d);
+		int offset = getHeaderSize();
+
+		if (d.ActionID == action_search_conf_response)
+		{
+			int count;
+			readIntFromMessage(q, count, offset);
+			for (int i(0); i < count; i++)
+			{
+				int id;
+				std::string name;
+				std::string date;
+				int themeId;
+				int cityId;
+				std::string description;
+				int admin;
+				std::string cityName;
+				std::string themeName;
+				int our;
+
+				readIntFromMessage(q, id, offset);
+				readStringFromMessage(q, name, offset);
+				readStringFromMessage(q, date, offset);
+				readIntFromMessage(q, themeId, offset);
+				readIntFromMessage(q, cityId, offset);
+				readStringFromMessage(q, description, offset);
+				readIntFromMessage(q, admin, offset);
+				readStringFromMessage(q, cityName, offset);
+				readStringFromMessage(q, themeName, offset);
+				readIntFromMessage(q, our, offset);
+
+				this->dataGridView1->Rows->Add();
+				this->dataGridView1->Rows[i]->Cells[0]->Value = id.ToString();
+				this->dataGridView1->Rows[i]->Cells[1]->Value = our.ToString();
+				this->dataGridView1->Rows[i]->Cells[2]->Value = gcnew System::String(name.c_str());
+				this->dataGridView1->Rows[i]->Cells[3]->Value = gcnew System::String(themeName.c_str());
+				this->dataGridView1->Rows[i]->Cells[4]->Value = gcnew System::String(date.c_str());
+			}
+		}
 	}
 }
 };
