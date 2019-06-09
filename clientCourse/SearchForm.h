@@ -2,7 +2,7 @@
 
 #include "Network.h"
 
-#include "ScientistForm.h"
+#include "ProfileForm.h"
 #include "ConfForm.h"
 
 namespace clientCourse {
@@ -31,6 +31,10 @@ namespace clientCourse {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  confName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  theme;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Date;
+	private: System::Windows::Forms::Label^  labelCityName;
+	private: System::Windows::Forms::TextBox^  textBoxCityName;
+	private: System::Windows::Forms::Label^  labelThemeName;
+	private: System::Windows::Forms::TextBox^  textBoxThemeName;
 
 
 
@@ -81,6 +85,10 @@ namespace clientCourse {
 			this->textBoxSearchPattern = (gcnew System::Windows::Forms::TextBox());
 			this->buttonFind = (gcnew System::Windows::Forms::Button());
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
+			this->labelCityName = (gcnew System::Windows::Forms::Label());
+			this->textBoxCityName = (gcnew System::Windows::Forms::TextBox());
+			this->labelThemeName = (gcnew System::Windows::Forms::Label());
+			this->textBoxThemeName = (gcnew System::Windows::Forms::TextBox());
 			this->id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->alreadyIn = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->confName = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -96,7 +104,7 @@ namespace clientCourse {
 			this->dataGridView1->AllowUserToResizeColumns = false;
 			this->dataGridView1->AllowUserToResizeRows = false;
 			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Control;
+			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::ControlLight;
 			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
 			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::WindowText;
 			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
@@ -116,7 +124,8 @@ namespace clientCourse {
 			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
 			this->dataGridView1->DefaultCellStyle = dataGridViewCellStyle2;
-			this->dataGridView1->Location = System::Drawing::Point(12, 47);
+			this->dataGridView1->EnableHeadersVisualStyles = false;
+			this->dataGridView1->Location = System::Drawing::Point(12, 106);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->ReadOnly = true;
 			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
@@ -128,7 +137,7 @@ namespace clientCourse {
 			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
 			this->dataGridView1->RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this->dataGridView1->RowHeadersVisible = false;
-			this->dataGridView1->Size = System::Drawing::Size(760, 502);
+			this->dataGridView1->Size = System::Drawing::Size(760, 443);
 			this->dataGridView1->TabIndex = 0;
 			this->dataGridView1->CellDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &SearchForm::dataGridView1_CellDoubleClick);
 			// 
@@ -137,14 +146,14 @@ namespace clientCourse {
 			this->textBoxSearchPattern->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
 			this->textBoxSearchPattern->Location = System::Drawing::Point(12, 12);
 			this->textBoxSearchPattern->Name = L"textBoxSearchPattern";
-			this->textBoxSearchPattern->Size = System::Drawing::Size(651, 29);
+			this->textBoxSearchPattern->Size = System::Drawing::Size(760, 29);
 			this->textBoxSearchPattern->TabIndex = 1;
 			this->textBoxSearchPattern->Text = L"Введите строку для поиска";
 			// 
 			// buttonFind
 			// 
 			this->buttonFind->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->buttonFind->Location = System::Drawing::Point(669, 12);
+			this->buttonFind->Location = System::Drawing::Point(670, 71);
 			this->buttonFind->Name = L"buttonFind";
 			this->buttonFind->Size = System::Drawing::Size(103, 29);
 			this->buttonFind->TabIndex = 2;
@@ -155,6 +164,42 @@ namespace clientCourse {
 			// timer
 			// 
 			this->timer->Tick += gcnew System::EventHandler(this, &SearchForm::timer_Tick);
+			// 
+			// labelCityName
+			// 
+			this->labelCityName->AutoSize = true;
+			this->labelCityName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->labelCityName->Location = System::Drawing::Point(12, 44);
+			this->labelCityName->Name = L"labelCityName";
+			this->labelCityName->Size = System::Drawing::Size(171, 24);
+			this->labelCityName->TabIndex = 3;
+			this->labelCityName->Text = L"Название города:";
+			// 
+			// textBoxCityName
+			// 
+			this->textBoxCityName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->textBoxCityName->Location = System::Drawing::Point(12, 71);
+			this->textBoxCityName->Name = L"textBoxCityName";
+			this->textBoxCityName->Size = System::Drawing::Size(323, 29);
+			this->textBoxCityName->TabIndex = 4;
+			// 
+			// labelThemeName
+			// 
+			this->labelThemeName->AutoSize = true;
+			this->labelThemeName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->labelThemeName->Location = System::Drawing::Point(341, 44);
+			this->labelThemeName->Name = L"labelThemeName";
+			this->labelThemeName->Size = System::Drawing::Size(192, 24);
+			this->labelThemeName->TabIndex = 5;
+			this->labelThemeName->Text = L"Название тематики:";
+			// 
+			// textBoxThemeName
+			// 
+			this->textBoxThemeName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->textBoxThemeName->Location = System::Drawing::Point(341, 71);
+			this->textBoxThemeName->Name = L"textBoxThemeName";
+			this->textBoxThemeName->Size = System::Drawing::Size(323, 29);
+			this->textBoxThemeName->TabIndex = 6;
 			// 
 			// id
 			// 
@@ -175,7 +220,7 @@ namespace clientCourse {
 			this->confName->HeaderText = L"Название конференции";
 			this->confName->Name = L"confName";
 			this->confName->ReadOnly = true;
-			this->confName->Width = 431;
+			this->confName->Width = 382;
 			// 
 			// theme
 			// 
@@ -189,11 +234,16 @@ namespace clientCourse {
 			this->Date->HeaderText = L"Даты";
 			this->Date->Name = L"Date";
 			this->Date->ReadOnly = true;
+			this->Date->Width = 150;
 			// 
 			// SearchForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->ClientSize = System::Drawing::Size(784, 561);
+			this->Controls->Add(this->textBoxThemeName);
+			this->Controls->Add(this->labelThemeName);
+			this->Controls->Add(this->textBoxCityName);
+			this->Controls->Add(this->labelCityName);
 			this->Controls->Add(this->buttonFind);
 			this->Controls->Add(this->textBoxSearchPattern);
 			this->Controls->Add(this->dataGridView1);
@@ -209,6 +259,7 @@ namespace clientCourse {
 		}
 #pragma endregion
 
+#pragma region FIND_SECTION
 private: void createMessage(std::vector<char> &mass, int &offset)
 {
 	__int64 Account = accountID;
@@ -223,7 +274,18 @@ private: void createMessage(std::vector<char> &mass, int &offset)
 	offset = getHeaderSize();
 	
 	std::string pattern = getStringFromSystemString(this->textBoxSearchPattern->Text);
+	std::string cityName = getStringFromSystemString(this->textBoxCityName->Text);
+	std::string themeName = getStringFromSystemString(this->textBoxThemeName->Text);
+	int isPattern = 1;
+	int isCity = (cityName.size() > 0 ? 1 : 0);
+	int isTheme = (themeName.size() > 0 ? 1: 0);
+
 	writeStringToMessage(mass, pattern, offset);
+	writeStringToMessage(mass, cityName, offset);
+	writeStringToMessage(mass, themeName, offset);
+	writeIntToMessage(mass, isPattern, offset);
+	writeIntToMessage(mass, isCity, offset);
+	writeIntToMessage(mass, isTheme, offset);
 }
 
 private: void loadData()
@@ -244,7 +306,7 @@ private: System::Void buttonFind_Click(System::Object^  sender, System::EventArg
 	this->dataGridView1->Rows->Clear();
 	loadData();
 }
-
+#pragma endregion FIND_SECTION
 private: System::Void dataGridView1_CellDoubleClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) 
 {
 	timer->Stop();
@@ -278,6 +340,17 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 			readIntFromMessage(q, count, offset);
 			for (int i(0); i < count; i++)
 			{
+				/*
+				int id;
+				std::string confName;
+
+				readIntFromMessage(q, id, offset);
+				readStringFromMessage(q, confName, offset);
+
+				this->dataGridView1->Rows->Add();
+				this->dataGridView1->Rows[i]->Cells[0]->Value = id.ToString();
+				this->dataGridView1->Rows[i]->Cells[2]->Value = gcnew System::String(confName.c_str());
+				*/
 				int id;
 				std::string name;
 				std::string date;

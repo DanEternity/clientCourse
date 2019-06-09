@@ -1,0 +1,47 @@
+ImageRuntimeVersion: v4.0.30319
+Assembly Interop.LCC11.1.0, Version=1.0.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class LCC11.ListClass: AutoLayout, AnsiClass, Class, Public, Import
+  :System.__ComObject
+    Void .ctor(): PrivateScope, Public, SpecialName, RTSpecialName
+  Interfaces:
+    LCC11.IList
+    LCC11.List
+  Properties:
+    Boolean DisplayTaskPane 'get set' : 
+    Boolean DisplaySheetTotals 'get set' : 
+  Methods:
+    SelectNewRow(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    PartCommunicationInit(Object(HasFieldMarshal)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    PartCommunicationMain(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    SetFilter(Object(In, HasFieldMarshal), Object(In, HasFieldMarshal)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    ClearFilter(Object(In, HasFieldMarshal), Object(In, HasFieldMarshal)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    NoFilter(Object(In, HasFieldMarshal), Object(In, HasFieldMarshal)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    NewFolder(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    Refresh(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask
+    get_DisplayTaskPane(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_DisplayTaskPane(Boolean(In)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    get_DisplaySheetTotals(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+    set_DisplaySheetTotals(Boolean(In)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, SpecialName
+Interface LCC11.List: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, Import
+  Interfaces:
+    LCC11.IList
+Interface LCC11.IList: AutoLayout, AnsiClass, Class, Public, ClassSemanticsMask, Abstract, Import
+  Properties:
+    Boolean DisplayTaskPane 'get set' : 
+    Boolean DisplaySheetTotals 'get set' : 
+  Methods:
+    SelectNewRow(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    PartCommunicationInit(Object(HasFieldMarshal)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    PartCommunicationMain(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    SetFilter(Object(In, HasFieldMarshal), Object(In, HasFieldMarshal)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    ClearFilter(Object(In, HasFieldMarshal), Object(In, HasFieldMarshal)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    NoFilter(Object(In, HasFieldMarshal), Object(In, HasFieldMarshal)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    NewFolder(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    Refresh(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract
+    get_DisplayTaskPane(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_DisplayTaskPane(Boolean(In)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    get_DisplaySheetTotals(): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName
+    set_DisplaySheetTotals(Boolean(In)): PrivateScope, Public, Virtual, HideBySig, VtableLayoutMask, Abstract, SpecialName

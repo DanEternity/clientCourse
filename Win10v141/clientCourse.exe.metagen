@@ -5,7 +5,6 @@
   clientCourse.MessageForm.resources - Embedded, ContainedInManifestFile, 
   clientCourse.MessageManagerForm.resources - Embedded, ContainedInManifestFile, 
   clientCourse.ProfileForm.resources - Embedded, ContainedInManifestFile, 
-  clientCourse.ScientistForm.resources - Embedded, ContainedInManifestFile, 
   clientCourse.SearchForm.resources - Embedded, ContainedInManifestFile, 
   clientCourse.SignIn.resources - Embedded, ContainedInManifestFile, 
   clientCourse.SignUp.resources - Embedded, ContainedInManifestFile, 
@@ -24,23 +23,32 @@ Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=
 	hash=None, flags=None
 Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
 	hash=None, flags=None
+Assembly Interop.Microsoft.Office.Core.2.8, Version=2.8.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=None, flags=None
+Assembly Interop.Microsoft.Office.Interop.Word.8.7, Version=8.7.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=None, flags=None
+Assembly Interop.LCC11.1.0, Version=1.0.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=None, flags=None
+Assembly Interop.Microsoft.Office.Interop.Excel.1.9, Version=1.9.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=None, flags=None
 Class clientCourse.MessageForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(Int32, Int32, Int32, Boolean, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Int32 accountType : Public
-    Int32 messageID : Public
-    Boolean isCreating : Public
     Int32 confID : Public
     Int32 messageType : Public
+    Int32 messageID : Public
+    Boolean isCreating : Public
     Int32 messageParam : Public
 Class clientCourse.MessageManagerForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
-    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+    Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Int32 accountType : Public
+    Int32 confID : Public
     clientCourse.MessageForm messageForm : Public
-Class clientCourse.ScientistForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+Class clientCourse.ProfileForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
@@ -49,7 +57,7 @@ Class clientCourse.MemberManagerForm: AutoLayout, AnsiClass, Class, Public, Befo
   :System.Windows.Forms.Form
     Void .ctor(Int32, Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
-    clientCourse.ScientistForm scientistForm : Public
+    clientCourse.ProfileForm profileForm : Public
     clientCourse.MessageForm messageForm : Public
     Int32 confID : Public
     Int32 accountType : Public
@@ -64,23 +72,20 @@ Class clientCourse.ConfForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldIn
     Boolean inEdit : Public
     Int32 adminId : Public
     Boolean alreadyIn : Public
+    Int32 returnState : Public
 Class clientCourse.ConfManagerForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Int32 accountType : Public
     clientCourse.ConfForm confForm : Public
+    Microsoft.Office.Interop.Excel.Application exelFile : Public
 Class clientCourse.SearchForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Fields:
     Int32 accountType : Public
     clientCourse.ConfForm confForm : Public
-Class clientCourse.ProfileForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
-  :System.Windows.Forms.Form
-    Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
-  Fields:
-    Int32 accountType : Public
 Class clientCourse.MainForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
   :System.Windows.Forms.Form
     Void .ctor(Int32): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

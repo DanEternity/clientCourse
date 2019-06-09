@@ -2,7 +2,10 @@
 
 #include "MainHeader.h"
 
+using namespace Microsoft::Office::Interop;
+
 __int64 accountID;
+std::string login;
 
 std::vector<std::vector<char> > ServerMessageQueue;
 
@@ -40,20 +43,32 @@ void writeHeader(std::vector<char> &mass, DataFormat d)
 	offset += sizeof(int);
 }
 
+void resizeIfNeed(std::vector<char> &mass, int offset, int size)
+{
+	if (mass.size() - offset - 5 < size)
+		mass.resize(mass.size() + size);
+}
+
 void writeDataToMessage(std::vector<char> &mass, std::string st, int &offset)
 {
+	resizeIfNeed(mass, offset, st.size());
+
 	memcpy(&mass[offset], &st[0], st.size());
 	offset += st.size();
 }
 
 void writeIntToMessage(std::vector<char> &mass, int value, int &offset)
 {
+	resizeIfNeed(mass, offset, sizeof(int));
+
 	memcpy(&mass[offset], &value, sizeof(int));
 	offset += sizeof(int);
 }
 
 void writeInt64ToMessage(std::vector<char> &mass, __int64 value, int &offset)
 {
+	resizeIfNeed(mass, offset, sizeof(__int64));
+
 	memcpy(&mass[offset], &value, sizeof(__int64));
 	offset += sizeof(__int64);
 }
@@ -128,4 +143,44 @@ void printCharMass(std::vector<char> mass)
 	}
 
 	std::cout << std::endl;
+}
+
+Microsoft::Office::Interop::Excel::Application^ createExcelFile()
+{
+	Microsoft::Office::Interop::Excel::Application^ ExcelApp = gcnew Microsoft::Office::Interop::Excel::ApplicationClass();
+
+	return ExcelApp;
+}
+
+void writeToExcel(Microsoft::Office::Interop::Excel::Application^ excelApp, std::vector<std::vector<std::string> > matr)
+{
+	System::Object ^missing = System::Type::Missing;
+	excelApp->Workbooks->Add(missing);
+	Excel::Worksheet ^sheet = (Excel::Worksheet^)excelApp->ActiveSheet;
+	
+	//headers
+	for (int j(0); j < matr[0].size(); j++)
+	{
+		sheet->Cells[1, j + 1] = gcnew System::String(matr[0][j].c_str());
+		//safe_cast<Microsoft::Office::Interop::Excel::Range^>(excelApp->Cells[0, j + 1]);
+	}
+
+	//cells
+	for (int i(1); i < matr.size(); i++)
+	{
+		for (int j(0); j < matr[i].size(); j++)
+		{
+			sheet->Cells[i + 1, j + 1] = gcnew System::String(matr[i][j].c_str());
+			safe_cast<Microsoft::Office::Interop::Excel::Range^>(excelApp->Cells[i + 1, j + 1]);
+		}
+	}
+}
+
+void saveAndExitExcel(Microsoft::Office::Interop::Excel::Application^ excelApp, System::String ^path)
+{
+	excelApp->ActiveWorkbook->SaveAs(path, System::Type::Missing, System::Type::Missing,
+		System::Type::Missing, System::Type::Missing, System::Type::Missing, Excel::XlSaveAsAccessMode::xlExclusive,
+		System::Type::Missing, System::Type::Missing, System::Type::Missing, System::Type::Missing, System::Type::Missing);
+	//excelApp->ActiveWorkbook->Saved = true;
+	excelApp->Quit();
 }

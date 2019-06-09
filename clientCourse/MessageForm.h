@@ -18,17 +18,23 @@ namespace clientCourse {
 	public ref class MessageForm : public System::Windows::Forms::Form
 	{
 	public: int accountType;
-	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::Label^  label2;
-	public: int messageID;
-	private: System::Windows::Forms::Timer^  timer;
-	private: System::Windows::Forms::Label^  labelTo;
-	public: bool isCreating;
-	private: System::Windows::Forms::Button^  buttonSend;
 	public: int confID;
 	public: int messageType;
+	public: int messageID;
+	public: bool isCreating;
 	public: int messageParam;
-		MessageForm(int accountType, int messageType, int messageID, bool creating, int confID)
+
+
+	private: System::Windows::Forms::Timer^  timer;
+	private: System::Windows::Forms::Label^  labelTo;
+	private: System::Windows::Forms::Button^  buttonSend;
+	private: System::Windows::Forms::TextBox^  textBoxFrom;
+
+	private: System::Windows::Forms::TextBox^  textBoxTo;
+	private: System::Windows::Forms::TextBox^  textBoxLabel;
+
+
+	public:	MessageForm(int accountType, int messageType, int messageID, bool creating, int confID)
 		{
 			InitializeComponent();
 
@@ -42,11 +48,6 @@ namespace clientCourse {
 
 			timer->Start();
 
-			if (accountType == ACCOUNT_TYPE_ADMINISTRATOR)
-				this->label2->Text = L"Администратор";
-			else if (accountType == ACCOUNT_TYPE_SCIENTIST)
-				this->label2->Text = L"Ученый";
-
 			buttonSend->Enabled = this->isCreating;
 			buttonSend->Visible = this->isCreating;
 			if (this->isCreating)
@@ -56,15 +57,19 @@ namespace clientCourse {
 
 				this->buttonDenied->Visible = false;
 				this->buttonDenied->Enabled = false;
+
+				this->textBoxFrom->ReadOnly = true;
+				this->textBoxTo->ReadOnly = false;
+				this->textBoxLabel->ReadOnly = false;
+				this->richTextBox1->ReadOnly = false;
 			}
 			else
 			{
+				this->richTextBox1->ReadOnly = true;
 				if (messageType == MESSAGE_INFORMATION)
 				{
 					this->buttonAccept->Hide();
 					this->buttonDenied->Hide();
-
-					this->label1->Text = L"Информационное сообщение";
 				}
 				else if (messageType == MESSAGE_INVITE)
 				{
@@ -77,8 +82,6 @@ namespace clientCourse {
 						this->buttonAccept->Hide();
 						this->buttonDenied->Text = L"Вернуть";
 					}
-
-					this->label1->Text = L"Приглашение";
 				}
 				else if (messageType == MESSAGE_REQUEST)
 				{
@@ -91,8 +94,6 @@ namespace clientCourse {
 					{
 						//everything is okay
 					}
-
-					this->label1->Text = L"Запрос";
 				}
 			}
 		}
@@ -136,11 +137,12 @@ namespace clientCourse {
 			this->buttonAccept = (gcnew System::Windows::Forms::Button());
 			this->buttonDenied = (gcnew System::Windows::Forms::Button());
 			this->labelFrom = (gcnew System::Windows::Forms::Label());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->labelTo = (gcnew System::Windows::Forms::Label());
 			this->buttonSend = (gcnew System::Windows::Forms::Button());
+			this->textBoxFrom = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxTo = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxLabel = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// labelTheme
@@ -187,30 +189,12 @@ namespace clientCourse {
 			// 
 			this->labelFrom->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->labelFrom->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->labelFrom->Location = System::Drawing::Point(12, 9);
+			this->labelFrom->Location = System::Drawing::Point(495, 6);
 			this->labelFrom->MaximumSize = System::Drawing::Size(150, 24);
 			this->labelFrom->Name = L"labelFrom";
-			this->labelFrom->Size = System::Drawing::Size(150, 24);
+			this->labelFrom->Size = System::Drawing::Size(46, 24);
 			this->labelFrom->TabIndex = 0;
 			this->labelFrom->Text = L"От:";
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(694, 20);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(27, 13);
-			this->label1->TabIndex = 5;
-			this->label1->Text = L"type";
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(694, 44);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(24, 13);
-			this->label2->TabIndex = 6;
-			this->label2->Text = L"role";
 			// 
 			// timer
 			// 
@@ -220,10 +204,10 @@ namespace clientCourse {
 			// 
 			this->labelTo->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->labelTo->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->labelTo->Location = System::Drawing::Point(168, 9);
+			this->labelTo->Location = System::Drawing::Point(12, 9);
 			this->labelTo->MaximumSize = System::Drawing::Size(150, 24);
 			this->labelTo->Name = L"labelTo";
-			this->labelTo->Size = System::Drawing::Size(150, 24);
+			this->labelTo->Size = System::Drawing::Size(72, 24);
 			this->labelTo->TabIndex = 7;
 			this->labelTo->Text = L"Кому:";
 			// 
@@ -238,15 +222,48 @@ namespace clientCourse {
 			this->buttonSend->UseVisualStyleBackColor = true;
 			this->buttonSend->Click += gcnew System::EventHandler(this, &MessageForm::buttonSend_Click);
 			// 
+			// textBoxFrom
+			// 
+			this->textBoxFrom->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->textBoxFrom->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->textBoxFrom->Location = System::Drawing::Point(547, 4);
+			this->textBoxFrom->Name = L"textBoxFrom";
+			this->textBoxFrom->ReadOnly = true;
+			this->textBoxFrom->Size = System::Drawing::Size(141, 29);
+			this->textBoxFrom->TabIndex = 9;
+			// 
+			// textBoxTo
+			// 
+			this->textBoxTo->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->textBoxTo->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->textBoxTo->Location = System::Drawing::Point(90, 4);
+			this->textBoxTo->MaximumSize = System::Drawing::Size(399, 29);
+			this->textBoxTo->Name = L"textBoxTo";
+			this->textBoxTo->ReadOnly = true;
+			this->textBoxTo->Size = System::Drawing::Size(399, 29);
+			this->textBoxTo->TabIndex = 10;
+			// 
+			// textBoxLabel
+			// 
+			this->textBoxLabel->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->textBoxLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->textBoxLabel->Location = System::Drawing::Point(90, 39);
+			this->textBoxLabel->MaximumSize = System::Drawing::Size(399, 29);
+			this->textBoxLabel->Name = L"textBoxLabel";
+			this->textBoxLabel->ReadOnly = true;
+			this->textBoxLabel->Size = System::Drawing::Size(399, 29);
+			this->textBoxLabel->TabIndex = 11;
+			// 
 			// MessageForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(784, 561);
+			this->Controls->Add(this->textBoxLabel);
+			this->Controls->Add(this->textBoxTo);
+			this->Controls->Add(this->textBoxFrom);
 			this->Controls->Add(this->buttonSend);
 			this->Controls->Add(this->labelTo);
-			this->Controls->Add(this->label2);
-			this->Controls->Add(this->label1);
 			this->Controls->Add(this->buttonDenied);
 			this->Controls->Add(this->buttonAccept);
 			this->Controls->Add(this->richTextBox1);
@@ -262,6 +279,7 @@ namespace clientCourse {
 		}
 #pragma endregion
 
+#pragma region INIT_SECTION
 private: void createMessage(std::vector<char> &mass, int &offset)
 {
 	__int64 Account = accountID;
@@ -291,7 +309,9 @@ private: void loadData()
 
 	SendToServer(&mass[0], offset, _socket);
 }
+#pragma endregion INIT_SECTION
 
+#pragma region SEND_MESSAGE_SECTION
 private: void createMessageSendMessage(std::vector<char> &mass, int &offset)
 {
 	__int64 Account = accountID;
@@ -308,14 +328,13 @@ private: void createMessageSendMessage(std::vector<char> &mass, int &offset)
 	int id = 0;
 	int fromId = 0;
 	int toId = 0;
-	std::string label = getStringFromSystemString(this->labelTheme->Text).substr(3);
+	std::string label = getStringFromSystemString(this->textBoxLabel->Text);
 	int messageType = this->messageType;
-	std::string fromName = "";
-	std::string toName = getStringFromSystemString(this->labelTo->Text).substr(5);
+	std::string fromName = login;
+	std::string toName = getStringFromSystemString(this->textBoxTo->Text);
 	std::string text = getStringFromSystemString(this->richTextBox1->Text);
 	int param = this->confID;
-	
-	toName = "test2";
+	int messageState = 0;
 
 	writeIntToMessage(mass, id, offset);
 	writeIntToMessage(mass, fromId, offset);
@@ -326,8 +345,23 @@ private: void createMessageSendMessage(std::vector<char> &mass, int &offset)
 	writeStringToMessage(mass, toName, offset);
 	writeStringToMessage(mass, text, offset);
 	writeIntToMessage(mass, param, offset);
+	writeIntToMessage(mass, messageState, offset);
 }
 
+private: System::Void buttonSend_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	std::vector<char> mass;
+	int offset = 0;
+
+	createMessageSendMessage(mass, offset);
+
+	printCharMass(mass);
+
+	SendToServer(&mass[0], offset, _socket);
+}
+#pragma endregion SEND_MESSAGE_SECTION
+
+#pragma region JOIN_CONFERENCE_SECTION
 private: void createMessageJoinConference(std::vector<char> &mass, int &offset)
 {
 	__int64 Account = accountID;
@@ -355,6 +389,7 @@ private: System::Void buttonAccept_Click(System::Object^  sender, System::EventA
 
 	SendToServer(&mass[0], offset, _socket);
 }
+#pragma endregion JOIN_CONFERENCE_SECTION
 
 private: System::Void buttonDenied_Click(System::Object^  sender, System::EventArgs^  e) 
 {
@@ -376,10 +411,10 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 		if (d.ActionID == action_error)
 		{
 			MessageBox::Show(
-				"Ошибка при добавлении на коонференции",
-				"Успех",
+				"Ошибка при добавлении конференции",
+				"Ошибка",
 				MessageBoxButtons::OK,
-				MessageBoxIcon::Information,
+				MessageBoxIcon::Error,
 				MessageBoxDefaultButton::Button1,
 				MessageBoxOptions::DefaultDesktopOnly
 			);
@@ -387,7 +422,7 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 			this->Activate();
 		}
 
-		if (d.ActionID == action_join_conf)
+		if (d.ActionID == action_join_conf_response)
 		{
 			MessageBox::Show(
 				"Вы были добавлены на конференцию",
@@ -398,7 +433,21 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 				MessageBoxOptions::DefaultDesktopOnly
 			);
 
-			this->Activate();
+			this->Close();
+		}
+
+		if (d.ActionID == action_send_message_response)
+		{
+			MessageBox::Show(
+				"Сообщение отправлено",
+				"Успех",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Information,
+				MessageBoxDefaultButton::Button1,
+				MessageBoxOptions::DefaultDesktopOnly
+			);
+
+			this->Close();
 		}
 
 		if (d.ActionID == action_get_message_response)
@@ -417,6 +466,7 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 				std::string toName;
 				std::string text;
 				int param;
+				int messageState;
 
 				readIntFromMessage(q, id, offset);
 				readIntFromMessage(q, fromId, offset);
@@ -427,32 +477,21 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 				readStringFromMessage(q, toName, offset);
 				readStringFromMessage(q, text, offset);
 				readIntFromMessage(q, param, offset);
+				readIntFromMessage(q, messageState, offset);
 
 				this->messageParam = param;
-
-				System::String ^fromS = L"От: " + gcnew System::String(fromName.c_str());
-				System::String ^labelS = L"Тема: " + gcnew System::String(label.c_str());
-				System::String ^toS = L"Кому: " + gcnew System::String(toName.c_str());
-				this->labelFrom->Text = fromS;
-				this->labelTheme->Text = labelS;
-				this->labelTo->Text = toS;
+				
+				this->textBoxFrom->Text = gcnew System::String(fromName.c_str());;
+				this->textBoxLabel->Text = gcnew System::String(label.c_str());;
+				this->textBoxTo->Text = gcnew System::String(toName.c_str());;
 
 				this->richTextBox1->Text = gcnew System::String(text.c_str());
 			}
+
+			if (this->isCreating)
+				this->textBoxFrom->Text = gcnew System::String(login.c_str());
 		}
 	}
-}
-
-private: System::Void buttonSend_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	std::vector<char> mass;
-	int offset = 0;
-
-	createMessageSendMessage(mass, offset);
-
-	printCharMass(mass);
-
-	SendToServer(&mass[0], offset, _socket);
 }
 };
 }

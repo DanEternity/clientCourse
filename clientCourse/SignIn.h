@@ -250,6 +250,7 @@ private: void createMessage(std::vector<char> &mass, int &offset)
 				readIntFromMessage(q, t, offset);
 				type = t - 1;
 				accountID = d.Account;
+				login = getStringFromSystemString(this->signInLogin->Text);
 			}
 		}
 

@@ -2,7 +2,7 @@
 
 #include "Network.h"
 
-#include "ScientistForm.h"
+#include "ProfileForm.h"
 #include "MessageForm.h"
 
 namespace clientCourse {
@@ -13,21 +13,23 @@ namespace clientCourse {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace Microsoft::Office::Interop;
 
 	/// <summary>
 	/// —водка дл€ MemberManagerForm
 	/// </summary>
 	public ref class MemberManagerForm : public System::Windows::Forms::Form
 	{
-	public: ScientistForm ^ scientistForm;
+	public: ProfileForm ^ profileForm;
 	public: MessageForm ^ messageForm;
 	private: System::Windows::Forms::Timer^  timer;
 	public: int confID;
 	private: System::Windows::Forms::Button^  buttonExportExcel;
+	private: System::Windows::Forms::Button^  buttonAddMember;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  id;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  firstName;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  lastName;
-	private: System::Windows::Forms::Button^  buttonAddMember;
+	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog1;
 	public: int accountType;
 		MemberManagerForm(int accountType, int confID)
 		{
@@ -83,6 +85,7 @@ namespace clientCourse {
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->buttonExportExcel = (gcnew System::Windows::Forms::Button());
 			this->buttonAddMember = (gcnew System::Windows::Forms::Button());
+			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -93,7 +96,7 @@ namespace clientCourse {
 			this->dataGridView1->AllowUserToResizeColumns = false;
 			this->dataGridView1->AllowUserToResizeRows = false;
 			dataGridViewCellStyle1->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::Control;
+			dataGridViewCellStyle1->BackColor = System::Drawing::SystemColors::ControlLight;
 			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
 			dataGridViewCellStyle1->ForeColor = System::Drawing::SystemColors::WindowText;
 			dataGridViewCellStyle1->SelectionBackColor = System::Drawing::SystemColors::Highlight;
@@ -105,6 +108,7 @@ namespace clientCourse {
 				this->id, this->firstName,
 					this->lastName
 			});
+			this->dataGridView1->EnableHeadersVisualStyles = false;
 			this->dataGridView1->Location = System::Drawing::Point(12, 12);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->ReadOnly = true;
@@ -128,7 +132,7 @@ namespace clientCourse {
 			this->firstName->Name = L"firstName";
 			this->firstName->ReadOnly = true;
 			this->firstName->Resizable = System::Windows::Forms::DataGridViewTriState::False;
-			this->firstName->Width = 375;
+			this->firstName->Width = 378;
 			// 
 			// lastName
 			// 
@@ -136,7 +140,7 @@ namespace clientCourse {
 			this->lastName->Name = L"lastName";
 			this->lastName->ReadOnly = true;
 			this->lastName->Resizable = System::Windows::Forms::DataGridViewTriState::False;
-			this->lastName->Width = 375;
+			this->lastName->Width = 378;
 			// 
 			// timer
 			// 
@@ -151,6 +155,7 @@ namespace clientCourse {
 			this->buttonExportExcel->TabIndex = 1;
 			this->buttonExportExcel->Text = L"Ёкспортировать в Excel";
 			this->buttonExportExcel->UseVisualStyleBackColor = true;
+			this->buttonExportExcel->Click += gcnew System::EventHandler(this, &MemberManagerForm::buttonExportExcel_Click);
 			// 
 			// buttonAddMember
 			// 
@@ -181,6 +186,7 @@ namespace clientCourse {
 		}
 #pragma endregion
 	
+#pragma region INIT_SECTION
 private: void createMessage(std::vector<char> &mass, int &offset)
 {
 	__int64 Account = accountID;
@@ -210,21 +216,71 @@ private: void loadData()
 
 	SendToServer(&mass[0], offset, _socket);
 }
+#pragma endregion INIT_SECTION
 
 private: System::Void dataGridView1_CellDoubleClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) 
 {
 	this->timer->Stop();
-	scientistForm = gcnew ScientistForm(accountType);
+	profileForm = gcnew ProfileForm(accountType);
 
 	this->Hide();
-	scientistForm->ShowDialog();
+	profileForm->ShowDialog();
 	this->Show();
 	this->Activate();
 
-	delete scientistForm;
+	delete profileForm;
 	this->timer->Start();
 }
 
+//add member
+private: System::Void buttonAddMember_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	this->timer->Stop();
+
+	this->messageForm = gcnew MessageForm(accountType, MESSAGE_INVITE, -1, true, this->confID);
+	this->Hide();
+	messageForm->ShowDialog();
+
+	this->Show();
+	this->Activate();
+
+	delete messageForm;
+
+	this->timer->Start();
+}
+
+#pragma region EXPORT_TO_EXCEL_SECTION
+private: System::Void buttonExportExcel_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::Cancel)
+		return;
+
+	std::vector<std::vector<std::string> > memberInfoMatr;
+
+	for (int i(0); i < this->dataGridView1->Rows->Count; i++)
+	{
+		std::vector<std::string> mass;
+		for (int j(0); j < this->dataGridView1->ColumnCount; j++)
+			mass.push_back(getStringFromSystemString(this->dataGridView1->Rows[i]->Cells[j]->Value->ToString()));
+
+		memberInfoMatr.push_back(mass);
+	}
+
+	Excel::Application ^excelApp = createExcelFile();
+	writeToExcel(excelApp, memberInfoMatr);
+	
+	saveAndExitExcel(excelApp, saveFileDialog1->FileName);
+
+	MessageBox::Show(
+		"‘айл был успешно создан",
+		"”спех",
+		MessageBoxButtons::OK,
+		MessageBoxIcon::Information,
+		MessageBoxDefaultButton::Button1,
+		MessageBoxOptions::DefaultDesktopOnly
+	);
+}
+#pragma endregion EXPORT_TO_EXCEL_SECTION
 private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e) 
 {
 	if (!ServerMessageQueue.empty())
@@ -258,21 +314,6 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 			}
 		}
 	}
-}
-
-//add memeber
-private: System::Void buttonAddMember_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	this->timer->Stop();
-
-	this->messageForm = gcnew MessageForm(accountType, MESSAGE_INVITE, -1, true, this->confID);
-	this->Hide();
-	messageForm->ShowDialog();
-
-	this->Show();
-	this->Activate();
-
-	this->timer->Start();
 }
 };
 }

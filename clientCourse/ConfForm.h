@@ -26,12 +26,19 @@ namespace clientCourse {
 	public: bool inEdit;
 	public: int adminId;
 	public: bool alreadyIn;
+	public: int returnState;
 	private: System::Windows::Forms::Button^  buttonDelete;
 	private: System::Windows::Forms::Timer^  timer;
 	private: System::Windows::Forms::TextBox^  textBoxConfName;
 	private: System::Windows::Forms::TextBox^  textBoxDates;
 	private: System::Windows::Forms::TextBox^  textBoxCityName;
 	private: System::Windows::Forms::TextBox^  textBoxThemeName;
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::Label^  label3;
+	private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::Panel^  panel1;
 	private: System::Windows::Forms::Button^  buttonLeave;
 			 
 	public:
@@ -43,9 +50,9 @@ namespace clientCourse {
 			this->confID = confID;
 			this->inEdit = false;
 			this->alreadyIn = (alreadyIn == ALREADY_IN ? true : false);
-
+			this->returnState = RETURN_STATE_NONE;
 			loadData();
-
+			
 			timer->Start();
 
 			if (accountType == ACCOUNT_TYPE_ADMINISTRATOR)
@@ -56,18 +63,18 @@ namespace clientCourse {
 				this->buttonLeave->Hide();
 				this->buttonDelete->Show();
 
-				int size = 182;
-				int offset = 5;
-				this->buttonMessages->Location = System::Drawing::Point(3 + (size + offset) * 0, 435);
+				int size = 185;
+				int offset = 6;
+				this->buttonMessages->Location = System::Drawing::Point(10 + (size + offset) * 0, 512);
 				this->buttonMessages->Size = System::Drawing::Size(size, 29);
 
-				this->buttonMembers->Location = System::Drawing::Point(3 + (size + offset) * 1, 435);
+				this->buttonMembers->Location = System::Drawing::Point(10 + (size + offset) * 1, 512);
 				this->buttonMembers->Size = System::Drawing::Size(size, 29);
 
-				this->buttonSettings->Location = System::Drawing::Point(3 + (size + offset) * 2, 435);
+				this->buttonSettings->Location = System::Drawing::Point(10 + (size + offset) * 2, 512);
 				this->buttonSettings->Size = System::Drawing::Size(size, 29);
 
-				this->buttonDelete->Location = System::Drawing::Point(3 + (size + offset) * 3, 435);
+				this->buttonDelete->Location = System::Drawing::Point(10 + (size + offset) * 3, 512);
 				this->buttonDelete->Size = System::Drawing::Size(size, 29);
 			}
 			else if (accountType == ACCOUNT_TYPE_SCIENTIST)
@@ -78,13 +85,13 @@ namespace clientCourse {
 				this->buttonLeave->Show();
 				this->buttonDelete->Hide();
 
-				int size = 371;
+				int size = 376;
 				int offset = 6;
 				
-				this->buttonMembers->Location = System::Drawing::Point(3 + (size + offset) * 0, 435);
+				this->buttonMembers->Location = System::Drawing::Point(10 + (size + offset) * 0, 512);
 				this->buttonMembers->Size = System::Drawing::Size(size, 29);
 
-				this->buttonLeave->Location = System::Drawing::Point(3 + (size + offset) * 1, 435);
+				this->buttonLeave->Location = System::Drawing::Point(10 + (size + offset) * 1, 512);
 				this->buttonLeave->Size = System::Drawing::Size(size, 29);
 
 				if (!this->alreadyIn)
@@ -103,8 +110,6 @@ namespace clientCourse {
 				delete components;
 			}
 		}
-
-	private: System::Windows::Forms::Panel^  panel1;
 	private: System::Windows::Forms::Button^  buttonSettings;
 	private: System::Windows::Forms::Button^  buttonMembers;
 	private: System::Windows::Forms::Button^  buttonMessages;
@@ -125,7 +130,6 @@ namespace clientCourse {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->buttonDelete = (gcnew System::Windows::Forms::Button());
 			this->buttonLeave = (gcnew System::Windows::Forms::Button());
 			this->buttonSettings = (gcnew System::Windows::Forms::Button());
@@ -137,27 +141,19 @@ namespace clientCourse {
 			this->textBoxDates = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxCityName = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxThemeName = (gcnew System::Windows::Forms::TextBox());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->panel1->SuspendLayout();
 			this->SuspendLayout();
-			// 
-			// panel1
-			// 
-			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
-			this->panel1->Controls->Add(this->buttonDelete);
-			this->panel1->Controls->Add(this->buttonLeave);
-			this->panel1->Controls->Add(this->buttonSettings);
-			this->panel1->Controls->Add(this->buttonMembers);
-			this->panel1->Controls->Add(this->buttonMessages);
-			this->panel1->Controls->Add(this->richTextBox1);
-			this->panel1->Location = System::Drawing::Point(12, 70);
-			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(760, 479);
-			this->panel1->TabIndex = 3;
 			// 
 			// buttonDelete
 			// 
 			this->buttonDelete->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->buttonDelete->Location = System::Drawing::Point(546, 435);
+			this->buttonDelete->Location = System::Drawing::Point(648, 512);
 			this->buttonDelete->Name = L"buttonDelete";
 			this->buttonDelete->Size = System::Drawing::Size(122, 37);
 			this->buttonDelete->TabIndex = 5;
@@ -168,7 +164,7 @@ namespace clientCourse {
 			// buttonLeave
 			// 
 			this->buttonLeave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->buttonLeave->Location = System::Drawing::Point(418, 435);
+			this->buttonLeave->Location = System::Drawing::Point(445, 512);
 			this->buttonLeave->Name = L"buttonLeave";
 			this->buttonLeave->Size = System::Drawing::Size(122, 37);
 			this->buttonLeave->TabIndex = 4;
@@ -179,7 +175,7 @@ namespace clientCourse {
 			// buttonSettings
 			// 
 			this->buttonSettings->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->buttonSettings->Location = System::Drawing::Point(273, 435);
+			this->buttonSettings->Location = System::Drawing::Point(300, 512);
 			this->buttonSettings->Name = L"buttonSettings";
 			this->buttonSettings->Size = System::Drawing::Size(139, 37);
 			this->buttonSettings->TabIndex = 3;
@@ -190,7 +186,7 @@ namespace clientCourse {
 			// buttonMembers
 			// 
 			this->buttonMembers->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->buttonMembers->Location = System::Drawing::Point(135, 435);
+			this->buttonMembers->Location = System::Drawing::Point(162, 512);
 			this->buttonMembers->Name = L"buttonMembers";
 			this->buttonMembers->Size = System::Drawing::Size(132, 37);
 			this->buttonMembers->TabIndex = 2;
@@ -201,7 +197,7 @@ namespace clientCourse {
 			// buttonMessages
 			// 
 			this->buttonMessages->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->buttonMessages->Location = System::Drawing::Point(3, 435);
+			this->buttonMessages->Location = System::Drawing::Point(10, 512);
 			this->buttonMessages->Name = L"buttonMessages";
 			this->buttonMessages->Size = System::Drawing::Size(126, 37);
 			this->buttonMessages->TabIndex = 1;
@@ -211,11 +207,12 @@ namespace clientCourse {
 			// 
 			// richTextBox1
 			// 
+			this->richTextBox1->BackColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->richTextBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
-			this->richTextBox1->Location = System::Drawing::Point(3, 3);
+			this->richTextBox1->Location = System::Drawing::Point(10, 203);
 			this->richTextBox1->Name = L"richTextBox1";
 			this->richTextBox1->ReadOnly = true;
-			this->richTextBox1->Size = System::Drawing::Size(750, 426);
+			this->richTextBox1->Size = System::Drawing::Size(760, 303);
 			this->richTextBox1->TabIndex = 0;
 			this->richTextBox1->Text = L"Информация о конференции";
 			// 
@@ -227,12 +224,12 @@ namespace clientCourse {
 			// 
 			this->textBoxConfName->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxConfName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->textBoxConfName->Location = System::Drawing::Point(12, 6);
-			this->textBoxConfName->MaximumSize = System::Drawing::Size(755, 29);
+			this->textBoxConfName->Location = System::Drawing::Point(233, 6);
+			this->textBoxConfName->MaximumSize = System::Drawing::Size(524, 29);
 			this->textBoxConfName->MinimumSize = System::Drawing::Size(226, 29);
 			this->textBoxConfName->Name = L"textBoxConfName";
 			this->textBoxConfName->ReadOnly = true;
-			this->textBoxConfName->Size = System::Drawing::Size(755, 29);
+			this->textBoxConfName->Size = System::Drawing::Size(524, 22);
 			this->textBoxConfName->TabIndex = 5;
 			this->textBoxConfName->Text = L"Название конференции";
 			// 
@@ -240,12 +237,12 @@ namespace clientCourse {
 			// 
 			this->textBoxDates->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxDates->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->textBoxDates->Location = System::Drawing::Point(12, 35);
-			this->textBoxDates->MaximumSize = System::Drawing::Size(220, 29);
+			this->textBoxDates->Location = System::Drawing::Point(233, 41);
+			this->textBoxDates->MaximumSize = System::Drawing::Size(524, 29);
 			this->textBoxDates->MinimumSize = System::Drawing::Size(0, 29);
 			this->textBoxDates->Name = L"textBoxDates";
 			this->textBoxDates->ReadOnly = true;
-			this->textBoxDates->Size = System::Drawing::Size(220, 29);
+			this->textBoxDates->Size = System::Drawing::Size(524, 22);
 			this->textBoxDates->TabIndex = 6;
 			this->textBoxDates->Text = L"Даты проведения";
 			// 
@@ -253,12 +250,12 @@ namespace clientCourse {
 			// 
 			this->textBoxCityName->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxCityName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->textBoxCityName->Location = System::Drawing::Point(238, 35);
-			this->textBoxCityName->MaximumSize = System::Drawing::Size(120, 29);
+			this->textBoxCityName->Location = System::Drawing::Point(233, 76);
+			this->textBoxCityName->MaximumSize = System::Drawing::Size(524, 29);
 			this->textBoxCityName->MinimumSize = System::Drawing::Size(0, 29);
 			this->textBoxCityName->Name = L"textBoxCityName";
 			this->textBoxCityName->ReadOnly = true;
-			this->textBoxCityName->Size = System::Drawing::Size(120, 29);
+			this->textBoxCityName->Size = System::Drawing::Size(524, 22);
 			this->textBoxCityName->TabIndex = 7;
 			this->textBoxCityName->Text = L"Город";
 			// 
@@ -266,36 +263,137 @@ namespace clientCourse {
 			// 
 			this->textBoxThemeName->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxThemeName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->textBoxThemeName->Location = System::Drawing::Point(364, 35);
-			this->textBoxThemeName->MaximumSize = System::Drawing::Size(403, 29);
+			this->textBoxThemeName->Location = System::Drawing::Point(233, 111);
+			this->textBoxThemeName->MaximumSize = System::Drawing::Size(524, 29);
 			this->textBoxThemeName->MinimumSize = System::Drawing::Size(0, 29);
 			this->textBoxThemeName->Name = L"textBoxThemeName";
 			this->textBoxThemeName->ReadOnly = true;
-			this->textBoxThemeName->Size = System::Drawing::Size(403, 29);
+			this->textBoxThemeName->Size = System::Drawing::Size(524, 22);
 			this->textBoxThemeName->TabIndex = 8;
 			this->textBoxThemeName->Text = L"Тематика";
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->label1->Location = System::Drawing::Point(3, 6);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(229, 24);
+			this->label1->TabIndex = 9;
+			this->label1->Text = L"Название конференции:";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->label2->Location = System::Drawing::Point(3, 41);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(177, 24);
+			this->label2->TabIndex = 10;
+			this->label2->Text = L"Даты проведения:";
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->label3->Location = System::Drawing::Point(3, 76);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(71, 24);
+			this->label3->TabIndex = 11;
+			this->label3->Text = L"Город:";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->label4->Location = System::Drawing::Point(3, 111);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(101, 24);
+			this->label4->TabIndex = 12;
+			this->label4->Text = L"Тематика:";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
+			this->label5->Location = System::Drawing::Point(8, 176);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(232, 24);
+			this->label5->TabIndex = 13;
+			this->label5->Text = L"Описание конференции:";
+			// 
+			// panel1
+			// 
+			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel1->Controls->Add(this->label1);
+			this->panel1->Controls->Add(this->textBoxConfName);
+			this->panel1->Controls->Add(this->label4);
+			this->panel1->Controls->Add(this->textBoxDates);
+			this->panel1->Controls->Add(this->label3);
+			this->panel1->Controls->Add(this->textBoxCityName);
+			this->panel1->Controls->Add(this->textBoxThemeName);
+			this->panel1->Controls->Add(this->label2);
+			this->panel1->Location = System::Drawing::Point(12, 3);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(760, 155);
+			this->panel1->TabIndex = 14;
 			// 
 			// ConfForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(784, 561);
-			this->Controls->Add(this->textBoxThemeName);
-			this->Controls->Add(this->textBoxCityName);
-			this->Controls->Add(this->textBoxDates);
-			this->Controls->Add(this->textBoxConfName);
 			this->Controls->Add(this->panel1);
+			this->Controls->Add(this->label5);
+			this->Controls->Add(this->richTextBox1);
+			this->Controls->Add(this->buttonMessages);
+			this->Controls->Add(this->buttonMembers);
+			this->Controls->Add(this->buttonSettings);
+			this->Controls->Add(this->buttonLeave);
+			this->Controls->Add(this->buttonDelete);
 			this->Location = System::Drawing::Point(200, 50);
 			this->Name = L"ConfForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::Manual;
 			this->Text = L"ConfForm";
 			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 
+//Message manager
+private: System::Void buttonMessages_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	this->timer->Stop();
+	messageManagerForm = gcnew MessageManagerForm(accountType, this->confID);
+
+	this->Hide();
+	messageManagerForm->ShowDialog();
+	this->Show();
+	this->Activate();
+
+	delete messageManagerForm;
+	this->timer->Start();
+}
+
+//Memeber manager
+private: System::Void buttonMembers_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	this->timer->Stop();
+	memberManagerForm = gcnew MemberManagerForm(accountType, confID);
+
+	this->Hide();
+	memberManagerForm->ShowDialog();
+	this->Show();
+	this->Activate();
+
+	delete memberManagerForm;
+	this->timer->Start();
+}
+
+#pragma region INIT_SECTION
 private: void createMessage(std::vector<char> &mass, int &offset)
 {
 	__int64 Account = accountID;
@@ -326,22 +424,9 @@ private: void loadData()
 
 	SendToServer(&mass[0], offset, _socket);
 }
+#pragma endregion INIT_SECTION
 
-//Сообщения
-private: System::Void buttonMessages_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	this->timer->Stop();
-	messageManagerForm = gcnew MessageManagerForm(accountType);
-
-	this->Hide();
-	messageManagerForm->ShowDialog();
-	this->Show();
-	this->Activate();
-
-	delete messageManagerForm;
-	this->timer->Start();
-}
-
+#pragma region SETTINGS_SECTION
 private: void createSettingsMessage(std::vector<char> &mass, int &offset)
 {
 	__int64 Account = accountID;
@@ -384,21 +469,6 @@ private: void createSettingsMessage(std::vector<char> &mass, int &offset)
 	}
 }
 
-//Участники
-private: System::Void buttonMembers_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	this->timer->Stop();
-	memberManagerForm = gcnew MemberManagerForm(accountType, confID);
-
-	this->Hide();
-	memberManagerForm->ShowDialog();
-	this->Show();
-	this->Activate();
-
-	delete memberManagerForm;
-	this->timer->Start();
-}
-
 //Настройки
 private: System::Void buttonSettings_Click(System::Object^  sender, System::EventArgs^  e) 
 {
@@ -436,6 +506,9 @@ private: System::Void buttonSettings_Click(System::Object^  sender, System::Even
 	}
 }
 
+#pragma endregion SETTINGS_SECTION
+
+#pragma region LEAVE_JOIN_SECTION
 private: void createLeaveMessage(std::vector<char> &mass, int &offset)
 {
 	__int64 Account = accountID;
@@ -448,7 +521,7 @@ private: void createLeaveMessage(std::vector<char> &mass, int &offset)
 	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
 
 	offset = getHeaderSize();
-	
+
 	int confID = this->confID;
 
 	writeIntToMessage(mass, confID, offset);
@@ -487,6 +560,8 @@ private: System::Void buttonLeave_Click(System::Object^  sender, System::EventAr
 		) == System::Windows::Forms::DialogResult::No)
 			return;
 
+		this->Activate();
+
 		std::vector<char> mass;
 		int offset = 0;
 
@@ -495,6 +570,9 @@ private: System::Void buttonLeave_Click(System::Object^  sender, System::EventAr
 		printCharMass(mass);
 
 		SendToServer(&mass[0], offset, _socket);
+
+		this->returnState = RETURN_STATE_UPDATE_CONFS;
+		this->Close();
 	}
 	else
 	{
@@ -508,6 +586,8 @@ private: System::Void buttonLeave_Click(System::Object^  sender, System::EventAr
 		) == System::Windows::Forms::DialogResult::No)
 			return;
 
+		this->Activate();
+
 		std::vector<char> mass;
 		int offset = 0;
 
@@ -518,7 +598,9 @@ private: System::Void buttonLeave_Click(System::Object^  sender, System::EventAr
 		SendToServer(&mass[0], offset, _socket);
 	}
 }
+#pragma endregion LEAVE_JOIN_SECTION
 
+#pragma region DELETE_SECTION
 private: void createDeleteMessage(std::vector<char> &mass, int &offset)
 {
 	__int64 Account = accountID;
@@ -540,11 +622,16 @@ private: void createDeleteMessage(std::vector<char> &mass, int &offset)
 //Удалить
 private: System::Void buttonDelete_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-	//std::vector<char> mass;
-	//int offset = 0;
+	std::vector<char> mass;
+	int offset = 0;
 
-	//createDeleteMessage(mass, offset);
+	createDeleteMessage(mass, offset);
+
+	printCharMass(mass);
+
+	SendToServer(&mass[0], offset, _socket);
 }
+#pragma endregion DELETE_SECTION
 
 //timer
 private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
@@ -587,6 +674,9 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 			);
 
 			this->Activate();
+
+			this->returnState = RETURN_STATE_UPDATE_CONFS;
+
 			return;
 		}
 
@@ -645,13 +735,15 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 		if (d.ActionID == action_delete_conf_response)
 		{
 			MessageBox::Show(
-				"Конференция успешно покинута",
+				"Конференция успешно удалена",
 				"Успех",
 				MessageBoxButtons::OK,
 				MessageBoxIcon::Information,
 				MessageBoxDefaultButton::Button1,
 				MessageBoxOptions::DefaultDesktopOnly
 			);
+
+			this->returnState = RETURN_STATE_UPDATE_CONFS;
 
 			this->Close();
 		}

@@ -23,9 +23,6 @@
     <ClCompile Include="ProfileForm.cpp">
       <Filter>FormsCpp</Filter>
     </ClCompile>
-    <ClCompile Include="ScientistForm.cpp">
-      <Filter>FormsCpp</Filter>
-    </ClCompile>
     <ClCompile Include="SearchForm.cpp">
       <Filter>FormsCpp</Filter>
     </ClCompile>
@@ -48,7 +45,6 @@
     <ClInclude Include="MessageManagerForm.h" />
     <ClInclude Include="Network.h" />
     <ClInclude Include="ProfileForm.h" />
-    <ClInclude Include="ScientistForm.h" />
     <ClInclude Include="SearchForm.h" />
     <ClInclude Include="SignIn.h" />
     <ClInclude Include="SignUp.h" />
@@ -63,7 +59,6 @@
     <EmbeddedResource Include="MessageForm.resx" />
     <EmbeddedResource Include="MessageManagerForm.resx" />
     <EmbeddedResource Include="ProfileForm.resx" />
-    <EmbeddedResource Include="ScientistForm.resx" />
     <EmbeddedResource Include="SearchForm.resx" />
     <EmbeddedResource Include="SignIn.resx" />
     <EmbeddedResource Include="SignUp.resx" />

@@ -109,7 +109,7 @@ int SendToServer(char * buffer, int size, SOCKET socket)
 	for (int i(0); i < r.size(); i++)
 	{
 		char * q = &r[i][0];
-		int y = send(socket, q, 512, 0);
+		int y =send(socket, q, 512, 0);
 		y = WSAGetLastError();
 		y = y;
 	}
