@@ -109,6 +109,7 @@ namespace clientCourse {
 			this->signInPassword->Name = L"signInPassword";
 			this->signInPassword->Size = System::Drawing::Size(190, 32);
 			this->signInPassword->TabIndex = 2;
+			this->signInPassword->UseSystemPasswordChar = true;
 			// 
 			// signInLabelLogin
 			// 

@@ -48,6 +48,8 @@ namespace clientCourse {
 
 			timer->Start();
 
+			buttonDenied->Visible = false;
+
 			buttonSend->Enabled = this->isCreating;
 			buttonSend->Visible = this->isCreating;
 			if (this->isCreating)

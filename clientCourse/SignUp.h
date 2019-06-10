@@ -156,6 +156,7 @@ namespace clientCourse {
 			this->signUpPassword->Name = L"signUpPassword";
 			this->signUpPassword->Size = System::Drawing::Size(208, 32);
 			this->signUpPassword->TabIndex = 2;
+			this->signUpPassword->UseSystemPasswordChar = true;
 			// 
 			// signUpLogin
 			// 
@@ -229,6 +230,7 @@ namespace clientCourse {
 			this->textBoxPasswordAgain->Name = L"textBoxPasswordAgain";
 			this->textBoxPasswordAgain->Size = System::Drawing::Size(317, 32);
 			this->textBoxPasswordAgain->TabIndex = 3;
+			this->textBoxPasswordAgain->UseSystemPasswordChar = true;
 			// 
 			// labelPasswordAgain
 			// 

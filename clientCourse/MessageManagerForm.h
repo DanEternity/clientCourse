@@ -23,7 +23,6 @@ namespace clientCourse {
 	public: int confID;
 	private: System::Windows::Forms::Timer^  timer;
 	private: System::Windows::Forms::CheckBox^  checkBox1;
-	private: System::Windows::Forms::Button^  buttonWriteMessage;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  id;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  messageType;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  fromId;
@@ -32,6 +31,15 @@ namespace clientCourse {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Отправитель;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Получатель;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Тема;
+
+
+
+
+
+
+
+
+
 	public: MessageForm ^ messageForm;
 		
 	public: MessageManagerForm(int accountType, int confID)
@@ -63,7 +71,7 @@ namespace clientCourse {
 	private: System::Windows::Forms::CheckBox^  checkBox9;
 	private: System::Windows::Forms::CheckBox^  checkBox7;
 	private: System::Windows::Forms::CheckBox^  checkBox3;
-	private: System::Windows::Forms::Panel^  panel2;
+
 	private: System::Windows::Forms::DataGridView^  dataGridView1;
 	private: System::ComponentModel::IContainer^  components;
 	private:
@@ -90,10 +98,8 @@ namespace clientCourse {
 			this->checkBox7 = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
-			this->panel2 = (gcnew System::Windows::Forms::Panel());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
-			this->buttonWriteMessage = (gcnew System::Windows::Forms::Button());
 			this->id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->messageType = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->fromId = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -103,7 +109,6 @@ namespace clientCourse {
 			this->Получатель = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Тема = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->panel1->SuspendLayout();
-			this->panel2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -204,14 +209,6 @@ namespace clientCourse {
 			this->checkBox1->UseVisualStyleBackColor = true;
 			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &MessageManagerForm::checkBox_CheckedChanged);
 			// 
-			// panel2
-			// 
-			this->panel2->Controls->Add(this->dataGridView1);
-			this->panel2->Location = System::Drawing::Point(321, 12);
-			this->panel2->Name = L"panel2";
-			this->panel2->Size = System::Drawing::Size(451, 537);
-			this->panel2->TabIndex = 1;
-			// 
 			// dataGridView1
 			// 
 			this->dataGridView1->AllowUserToAddRows = false;
@@ -240,29 +237,19 @@ namespace clientCourse {
 			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
 			this->dataGridView1->DefaultCellStyle = dataGridViewCellStyle2;
 			this->dataGridView1->EnableHeadersVisualStyles = false;
-			this->dataGridView1->Location = System::Drawing::Point(3, 3);
+			this->dataGridView1->Location = System::Drawing::Point(12, 12);
 			this->dataGridView1->Name = L"dataGridView1";
 			this->dataGridView1->ReadOnly = true;
 			this->dataGridView1->RowHeadersVisible = false;
 			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
 			this->dataGridView1->RowsDefaultCellStyle = dataGridViewCellStyle3;
-			this->dataGridView1->Size = System::Drawing::Size(445, 531);
+			this->dataGridView1->Size = System::Drawing::Size(760, 537);
 			this->dataGridView1->TabIndex = 0;
 			this->dataGridView1->CellDoubleClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MessageManagerForm::dataGridView1_CellDoubleClick);
 			// 
 			// timer
 			// 
 			this->timer->Tick += gcnew System::EventHandler(this, &MessageManagerForm::timer_Tick);
-			// 
-			// buttonWriteMessage
-			// 
-			this->buttonWriteMessage->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14));
-			this->buttonWriteMessage->Location = System::Drawing::Point(12, 12);
-			this->buttonWriteMessage->Name = L"buttonWriteMessage";
-			this->buttonWriteMessage->Size = System::Drawing::Size(303, 33);
-			this->buttonWriteMessage->TabIndex = 1;
-			this->buttonWriteMessage->Text = L"Написать сообщение";
-			this->buttonWriteMessage->UseVisualStyleBackColor = true;
 			// 
 			// id
 			// 
@@ -304,29 +291,28 @@ namespace clientCourse {
 			this->Отправитель->HeaderText = L"Отправитель";
 			this->Отправитель->Name = L"Отправитель";
 			this->Отправитель->ReadOnly = true;
-			this->Отправитель->Width = 140;
+			this->Отправитель->Width = 270;
 			// 
 			// Получатель
 			// 
 			this->Получатель->HeaderText = L"Получатель";
 			this->Получатель->Name = L"Получатель";
 			this->Получатель->ReadOnly = true;
-			this->Получатель->Width = 140;
+			this->Получатель->Width = 272;
 			// 
 			// Тема
 			// 
 			this->Тема->HeaderText = L"Тема";
 			this->Тема->Name = L"Тема";
 			this->Тема->ReadOnly = true;
-			this->Тема->Width = 161;
+			this->Тема->Width = 215;
 			// 
 			// MessageManagerForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(784, 561);
-			this->Controls->Add(this->buttonWriteMessage);
-			this->Controls->Add(this->panel2);
+			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->panel1);
 			this->Location = System::Drawing::Point(200, 50);
 			this->Name = L"MessageManagerForm";
@@ -334,7 +320,6 @@ namespace clientCourse {
 			this->Text = L"MessageManagerForm";
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
-			this->panel2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 

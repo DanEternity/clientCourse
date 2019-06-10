@@ -35,11 +35,6 @@ namespace clientCourse {
 	private: System::Windows::Forms::TextBox^  textBoxCityName;
 	private: System::Windows::Forms::Label^  labelThemeName;
 	private: System::Windows::Forms::TextBox^  textBoxThemeName;
-
-
-
-
-
 	public: ConfForm ^ confForm;
 
 	public: SearchForm(int accountType)
@@ -310,8 +305,8 @@ private: System::Void buttonFind_Click(System::Object^  sender, System::EventArg
 private: System::Void dataGridView1_CellDoubleClick(System::Object^  sender, System::Windows::Forms::DataGridViewCellEventArgs^  e) 
 {
 	timer->Stop();
-	confForm = gcnew ConfForm(accountType, Convert::ToInt32(dataGridView1->Rows[e->RowIndex]->Cells[0]->Value->ToString())
-		, Convert::ToInt32(dataGridView1->Rows[e->RowIndex]->Cells[1]->Value->ToString()));
+	confForm = gcnew ConfForm(accountType, Convert::ToInt32(dataGridView1->Rows[e->RowIndex]->Cells[0]->Value->ToString()), 0);
+		//, Convert::ToInt32(dataGridView1->Rows[e->RowIndex]->Cells[1]->Value->ToString()));
 
 	this->Hide();
 	confForm->ShowDialog();

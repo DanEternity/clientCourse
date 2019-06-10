@@ -53,6 +53,9 @@ int authorization()
 [STAThreadAttribute]
 int main(array<System::String^> ^args)
 {
+	FreeConsole();
+	//HWND hConsole = GetConsoleWindow();//Если компилятор старый заменить на GetForegroundWindow()
+	//ShowWindow(hConsole, SW_HIDE);
 	// Включение визуальных эффектов Windows XP до создания каких-либо элементов управления
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);

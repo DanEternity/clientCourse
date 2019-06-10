@@ -190,7 +190,6 @@ namespace clientCourse {
 			this->buttonSettings->TabIndex = 7;
 			this->buttonSettings->Text = L"Настройки";
 			this->buttonSettings->UseVisualStyleBackColor = true;
-			this->buttonSettings->Click += gcnew System::EventHandler(this, &MainForm::buttonSettings_Click);
 			// 
 			// buttonExit
 			// 
@@ -227,40 +226,10 @@ namespace clientCourse {
 		}
 #pragma endregion
 
-#pragma region Reasonable Functions
-	private: void setButtonActive(System::Windows::Forms::Button ^p)
-	{
-		buttonSetColorDef();
-		buttonSetColor(p, Color::Purple);
-	}
-
-#pragma endregion
-
-#pragma region Debug Functions
-
-	private: void buttonSetColorDef()
-	{
-		this->buttonConf->BackColor = Color::White;
-		this->buttonExit->BackColor = Color::White; 
-		this->buttonMessages->BackColor = Color::White;
-		this->buttonProfile->BackColor = Color::White;
-		this->buttonSettings->BackColor = Color::White;
-		this->buttonSearch->BackColor = Color::White;
-	}
-
-	private: void buttonSetColor(System::Windows::Forms::Button ^p, Color color)
-	{
-		p->BackColor = color;
-	}
-
-#pragma endregion
-
 #pragma region Buttons
 //Профиль
 private: System::Void buttonProfile_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-	setButtonActive(this->buttonProfile);
-
 	profileForm = gcnew ProfileForm(accountType);
 
 	this->Hide();
@@ -274,8 +243,6 @@ private: System::Void buttonProfile_Click(System::Object^  sender, System::Event
 //Конференции
 private: System::Void buttonConf_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-	setButtonActive(this->buttonConf);
-
 	this->confManagerForm = gcnew ConfManagerForm(accountType);
 	this->Hide();
 	confManagerForm->ShowDialog();
@@ -285,17 +252,9 @@ private: System::Void buttonConf_Click(System::Object^  sender, System::EventArg
 	delete confManagerForm;
 }
 
-//Настройки
-private: System::Void buttonSettings_Click(System::Object^  sender, System::EventArgs^  e) 
-{
-	setButtonActive(this->buttonSettings);
-}
-
 //Сообщения
 private: System::Void buttonMessages_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-	setButtonActive(this->buttonMessages);
-
 	this->messageManagerForm = gcnew MessageManagerForm(accountType, -1);
 
 	this->Hide();
@@ -309,8 +268,6 @@ private: System::Void buttonMessages_Click(System::Object^  sender, System::Even
 //Поиск
 private: System::Void buttonSearch_Click(System::Object^  sender, System::EventArgs^  e) 
 {
-	setButtonActive(this->buttonSearch);
-
 	this->searchForm = gcnew SearchForm(accountType);
 
 	this->Hide();

@@ -2,6 +2,8 @@
 
 #include "Network.h"
 
+#include <map>
+
 namespace clientCourse {
 
 	using namespace System;
@@ -54,6 +56,9 @@ namespace clientCourse {
 				loadData();
 			}
 
+			this->buttonSettings->Hide();
+			this->buttonDeleteAccount->Hide();
+
 			timer->Start();
 		}
 
@@ -88,6 +93,8 @@ namespace clientCourse {
 	private: System::Windows::Forms::Button^  buttonAddCityName;
 	private: System::Windows::Forms::TextBox^  textBoxAddCityName;
 	private: System::Windows::Forms::TextBox^  textBoxAddThemeName;
+	private: System::Windows::Forms::DataVisualization::Charting::Chart^  chart;
+
 	private: System::ComponentModel::IContainer^  components;
 	private:
 		/// <summary>
@@ -103,10 +110,14 @@ namespace clientCourse {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^  chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^  legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^  series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->labelAccountType = (gcnew System::Windows::Forms::Label());
 			this->textBoxFirstName = (gcnew System::Windows::Forms::TextBox());
 			this->labelFirstName = (gcnew System::Windows::Forms::Label());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->chart = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->buttonAddThemeName = (gcnew System::Windows::Forms::Button());
 			this->buttonAddCityName = (gcnew System::Windows::Forms::Button());
 			this->textBoxAddCityName = (gcnew System::Windows::Forms::TextBox());
@@ -123,6 +134,7 @@ namespace clientCourse {
 			this->buttonSettings = (gcnew System::Windows::Forms::Button());
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->panel1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// labelAccountType
@@ -159,6 +171,7 @@ namespace clientCourse {
 			// panel1
 			// 
 			this->panel1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
+			this->panel1->Controls->Add(this->chart);
 			this->panel1->Controls->Add(this->buttonAddThemeName);
 			this->panel1->Controls->Add(this->buttonAddCityName);
 			this->panel1->Controls->Add(this->textBoxAddCityName);
@@ -177,6 +190,22 @@ namespace clientCourse {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(760, 469);
 			this->panel1->TabIndex = 5;
+			// 
+			// chart
+			// 
+			chartArea1->Name = L"ChartArea1";
+			this->chart->ChartAreas->Add(chartArea1);
+			legend1->Name = L"Legend1";
+			this->chart->Legends->Add(legend1);
+			this->chart->Location = System::Drawing::Point(229, 159);
+			this->chart->Name = L"chart";
+			series1->ChartArea = L"ChartArea1";
+			series1->Legend = L"Legend1";
+			series1->Name = L"Series1";
+			this->chart->Series->Add(series1);
+			this->chart->Size = System::Drawing::Size(524, 303);
+			this->chart->TabIndex = 8;
+			this->chart->Text = L"chart";
 			// 
 			// buttonAddThemeName
 			// 
@@ -345,6 +374,7 @@ namespace clientCourse {
 			this->Text = L"ProfileForm";
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -442,6 +472,182 @@ private: System::Void buttonAddCityName_Click(System::Object^  sender, System::E
 	SendToServer(&mass[0], offset, _socket);
 }
 #pragma endregion ADD_CITY_SECTION
+
+#pragma region CREATE_CHART_SECTION
+private: void createMessageConfInfo(std::vector<char> &mass, int &offset, int confID)
+{
+	__int64 Account = accountID;
+	Actions ActionID = action_conf_full_info;
+	int PacketID = 0;
+	int PacketCountExpected = 0;
+
+	mass.resize(200);
+
+	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
+
+	offset = getHeaderSize();
+
+	writeIntToMessage(mass, confID, offset);
+}
+
+private: std::map<std::string, int> getThemeCountMass(std::vector<int> massB)
+{
+	std::map<std::string, int> m;
+
+	this->timer->Stop();
+
+	for (int i(0); i < massB.size(); i++)
+	{
+		std::vector<char> mass;
+		int offset = 0;
+
+		createMessageConfInfo(mass, offset, massB[i]);
+		printCharMass(mass);
+		SendToServer(&mass[0], offset, _socket);
+
+		while (ServerMessageQueue.empty())
+		{
+			UpdateSocket(_socket);
+			Sleep(0);
+		}
+
+		std::vector<char> q = ServerMessageQueue.front();
+		ServerMessageQueue.erase(ServerMessageQueue.begin());
+
+		printCharMass(q);
+		DataFormat d;
+		readHeader(q, d);
+		offset = getHeaderSize();
+
+		int count;//=1
+		readIntFromMessage(q, count, offset);
+		for (int i(0); i < count; i++)
+		{
+			int id;
+			std::string name;
+			std::string date;
+			int themeId;
+			int cityId;
+			std::string description;
+			int admin;
+			std::string cityName;
+			std::string themeName;
+
+			readIntFromMessage(q, id, offset);
+			readStringFromMessage(q, name, offset);
+			readStringFromMessage(q, date, offset);
+			readIntFromMessage(q, themeId, offset);
+			readIntFromMessage(q, cityId, offset);
+			readStringFromMessage(q, description, offset);
+			readIntFromMessage(q, admin, offset);
+			readStringFromMessage(q, cityName, offset);
+			readStringFromMessage(q, themeName, offset);
+		
+			if (m.find(themeName) != m.end())//was found
+				m[themeName]++;
+			else m.insert(make_pair(themeName, 1));
+		}
+	}
+
+	this->timer->Start();
+
+	return m;
+}
+
+private: void createMessageConfManagerInfo(std::vector<char> &mass, int &offset)
+{
+	__int64 Account = accountID;
+	Actions ActionID = action_conf_user;
+	int PacketID = 0;
+	int PacketCountExpected = 0;
+
+	mass.resize(200);
+
+	writeHeader(mass, DataFormat(Account, ActionID, PacketID, PacketCountExpected));
+
+	offset = getHeaderSize();
+}
+
+private: std::vector<int> getConfIDmass()
+{
+	this->timer->Stop();
+
+	std::vector<int> buffer;
+
+	std::vector<char> mass;
+	int offset = 0;
+
+	createMessageConfManagerInfo(mass, offset);
+	
+	printCharMass(mass);
+
+	SendToServer(&mass[0], offset, _socket);
+	
+	while (ServerMessageQueue.empty())
+	{
+		UpdateSocket(_socket);
+		Sleep(0);
+	}
+
+	std::vector<char> q = ServerMessageQueue.front();
+	ServerMessageQueue.erase(ServerMessageQueue.begin());
+
+	printCharMass(q);
+	DataFormat d;
+	readHeader(q, d);
+	offset = getHeaderSize();
+	
+	int count;
+	readIntFromMessage(q, count, offset);
+	for (int i(0); i < count; i++)
+	{
+		int id;
+		int size;
+
+		readIntFromMessage(q, id, offset);
+		readIntFromMessage(q, size, offset);
+
+		std::string st;
+		st.resize(size);
+		readDataFromMessage(q, st, size, offset);
+
+		buffer.push_back(id);
+	}
+
+	this->timer->Start();
+
+	return buffer;
+}
+
+private: void createChart()
+{
+	chart->Series->Clear();
+	// Форматировать диаграмму
+	chart->BackColor = Color::Gray;
+	chart->BackSecondaryColor = Color::WhiteSmoke;
+	chart->BorderlineColor = Color::Gray;
+	// Форматировать область диаграммы
+	chart->ChartAreas[0]->BackColor = Color::Wheat;
+
+	chart->Titles->Add("Диаграммы");
+	chart->Series->Add(L"Тематики");
+	chart->Series[0]->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Pie;
+
+	
+	std::vector<int> confIDmass = getConfIDmass();
+	
+	int index = 0;
+	std::map<std::string, int> m = getThemeCountMass(confIDmass);
+	for (auto i = m.begin(); i != m.end(); i++)
+	{
+		chart->Series[0]->Points->Add(i->second);
+		chart->Series[0]->Points[index++]->Label = gcnew System::String(i->first.c_str());
+	}
+	
+	chart->ChartAreas[0]->Area3DStyle->Enable3D = true;
+}
+#pragma endregion CREATE_CHART_SECTION
+
 //settings
 private: System::Void buttonSettings_Click(System::Object^  sender, System::EventArgs^  e) 
 {
@@ -524,6 +730,15 @@ private: System::Void timer_Tick(System::Object^  sender, System::EventArgs^  e)
 				this->textBoxLastName->Text = gcnew System::String(lastName.c_str());
 				this->textBoxThemeName->Text = gcnew System::String(themeName.c_str());
 				this->textBoxCity->Text = gcnew System::String(cityName.c_str());
+			}
+
+			if (accountType == ACCOUNT_TYPE_SCIENTIST)
+			{
+				createChart();
+			}
+			else if (accountType == ACCOUNT_TYPE_ADMINISTRATOR)
+			{
+				this->chart->Visible = false;
 			}
 		}
 	}
